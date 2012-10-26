@@ -21,17 +21,17 @@ import net.minecraft.client.Minecraft;
 public class mod_crystalWing extends BaseMod
 {
 
-	@MLProp
-	public static int idCrystalWing = 3100;
-	@MLProp
-	public static int idBurningWing = 3101;
-	@MLProp
-	public static int idBurnedWing = 3102;
-	@MLProp(info="Number of Crystal Wing uses. Set to 0 for infinite.")
-	public static int uses = 8;
-	@MLProp(info="Maximum distance for the Burned Wing teleportation.\n\n**ONLY EDIT WHAT IS BELOW THIS**")
-	public static int teleDistance = 500;
-	
+    @MLProp
+    public static int idCrystalWing = 3100;
+    @MLProp
+    public static int idBurningWing = 3101;
+    @MLProp
+    public static int idBurnedWing = 3102;
+    @MLProp(info="Number of Crystal Wing uses. Set to 0 for infinite.")
+    public static int uses = 8;
+    @MLProp(info="Maximum distance for the Burned Wing teleportation.\n\n**ONLY EDIT WHAT IS BELOW THIS**")
+    public static int teleDistance = 500;
+    
     static int indexCrystalWing = ModLoader.addOverride("/gui/items.png", "/daftpvf/crystalWing.png");
     static int indexBurningWing = ModLoader.addOverride("/gui/items.png", "/daftpvf/crystalWingBurning.png");
     static int indexBurnedWing = ModLoader.addOverride("/gui/items.png", "/daftpvf/crystalWingBurned.png");
@@ -53,7 +53,7 @@ public class mod_crystalWing extends BaseMod
         {
             crystalWing.setMaxDamage(uses - 1);
         }
-    	ModLoader.setInGameHook(this, true, true);
+        ModLoader.setInGameHook(this, true, true);
     }
 
     public String getVersion()
@@ -63,32 +63,32 @@ public class mod_crystalWing extends BaseMod
 
     public void load()
     {
-    	if(!isCurrentVersion(ModLoader.getMinecraftInstance()))
-    		ModLoader.getLogger().log(Level.INFO, "Your version of CrystalWing is out of date! Visit http://www.minecraftforum.net/topic/1009577- for the latest version.");
+        if(!isCurrentVersion(ModLoader.getMinecraftInstance()))
+            ModLoader.getLogger().log(Level.INFO, "Your version of CrystalWing is out of date! Visit http://www.minecraftforum.net/topic/1009577- for the latest version.");
     }
     
     public boolean onTickInGame(float f, Minecraft minecraft)
     {
-    	if(!isCurrentVersion(minecraft) && minecraft.inGameHasFocus)
-    	{
-    		minecraft.thePlayer.addChatMessage("&cYour version of CrystalWing is out of date!");
-    		minecraft.thePlayer.addChatMessage("&cVisit http://www.minecraftforum.net/topic/1009577- for the latest version.");
-    	}
+        if(!isCurrentVersion(minecraft) && minecraft.inGameHasFocus)
+        {
+            minecraft.thePlayer.addChatMessage("&cYour version of CrystalWing is out of date!");
+            minecraft.thePlayer.addChatMessage("&cVisit http://www.minecraftforum.net/topic/1009577- for the latest version.");
+        }
         return !minecraft.inGameHasFocus;
     }
     
     private boolean isCurrentVersion(Minecraft minecraft)
     {
-    	try
-    	{
-	    	String[] version = loadTextFromURL(new URL("https://dl.dropbox.com/u/20748481/Minecraft/1.3.1/crystalWing.version"));
-	    	return version[0].equalsIgnoreCase(getVersion());
-    	}
-    	catch(Exception e)
-    	{
-    		ModLoader.getLogger().log(Level.WARNING, "Error getting current version info: " + e.getStackTrace());
-    		return true;
-    	}
+        try
+        {
+            String[] version = loadTextFromURL(new URL("https://dl.dropbox.com/u/20748481/Minecraft/1.3.1/crystalWing.version"));
+            return version[0].equalsIgnoreCase(getVersion());
+        }
+        catch(Exception e)
+        {
+            ModLoader.getLogger().log(Level.WARNING, "Error getting current version info: " + e.getStackTrace());
+            return true;
+        }
     }
 
     private String[] loadTextFromURL(URL url)
@@ -100,8 +100,8 @@ public class mod_crystalWing extends BaseMod
             scanner = new Scanner(url.openStream(), "UTF-8");
         }
         catch(FileNotFoundException filenotfoundexception) { } catch (IOException e) {
-        	ModLoader.getLogger().log(Level.WARNING, "Error getting current version info: " + e.getStackTrace());
-		}
+            ModLoader.getLogger().log(Level.WARNING, "Error getting current version info: " + e.getStackTrace());
+        }
         while(scanner.hasNextLine())
         {
             arraylist.add(scanner.nextLine());
