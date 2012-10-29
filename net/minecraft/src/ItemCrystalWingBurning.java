@@ -1,13 +1,4 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) braces deadcode fieldsfirst 
-
 package net.minecraft.src;
-
-
-// Referenced classes of package net.minecraft.src:
-//            Item, Entity, EntityPlayer, World, 
-//            mod_crystalWing, InventoryPlayer, ItemStack
 
 public class ItemCrystalWingBurning extends Item
 {
@@ -16,6 +7,7 @@ public class ItemCrystalWingBurning extends Item
     {
         super(i);
         maxStackSize = 1;
+        this.setCreativeTab(CreativeTabs.tabTransport);
     }
 
     public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean flag)

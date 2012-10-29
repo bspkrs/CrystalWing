@@ -1,14 +1,6 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) braces deadcode fieldsfirst 
-
 package net.minecraft.src;
 
 import java.util.Random;
-
-// Referenced classes of package net.minecraft.src:
-//            Item, EntityPlayer, mod_crystalWing, World, 
-//            IChunkProvider, ItemStack
 
 public class ItemCrystalWingBurned extends Item
 {
@@ -22,6 +14,7 @@ public class ItemCrystalWingBurned extends Item
         teleDistance = 1;
         teleDistance = j;
         rand = new Random();
+        this.setCreativeTab(CreativeTabs.tabTransport);
     }
 
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)

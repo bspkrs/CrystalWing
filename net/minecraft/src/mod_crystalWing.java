@@ -1,26 +1,12 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) braces deadcode fieldsfirst 
-
 package net.minecraft.src;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.logging.Level;
-
+import bspkrs.util.ModVersionChecker;
 import net.minecraft.client.Minecraft;
-
-
-// Referenced classes of package net.minecraft.src:
-//            BaseMod, ModLoader, ItemStack, Item, 
-//            ItemCrystalWing, ItemCrystalWingBurning, ItemCrystalWingBurned, Achievement
 
 public class mod_crystalWing extends BaseMod
 {
-
+    @MLProp(info="Set to true to allow checking for mod updates, false to disable")
+    public static boolean allowUpdateCheck = true;
     @MLProp
     public static int idCrystalWing = 3100;
     @MLProp
@@ -39,6 +25,11 @@ public class mod_crystalWing extends BaseMod
     public static final Item crystalWingBurning = (new ItemCrystalWingBurning(idBurningWing - 256)).setItemName("burningWing").setIconIndex(indexBurningWing);
     public static final Item crystalWingBurned = (new ItemCrystalWingBurned(idBurnedWing - 256, teleDistance)).setItemName("burnedWing").setIconIndex(indexBurnedWing);
     public static final Achievement burnedWing = (new Achievement(1710, "burnedWing", 9, -5, crystalWingBurning, null)).registerAchievement();
+    
+    private boolean checkUpdate;
+    private ModVersionChecker versionChecker;
+    private String versionURL = "https://dl.dropbox.com/u/20748481/Minecraft/1.4.2/crystalWing.version";
+    private String mcfTopic = "http://www.minecraftforum.net/topic/1009577-";
 
     public mod_crystalWing()
     {
@@ -54,59 +45,29 @@ public class mod_crystalWing extends BaseMod
             crystalWing.setMaxDamage(uses - 1);
         }
         ModLoader.setInGameHook(this, true, true);
+        
+        checkUpdate = allowUpdateCheck;
+        versionChecker = new ModVersionChecker(getName(), getVersion(), versionURL, mcfTopic, ModLoader.getLogger());
     }
 
     public String getVersion()
     {
-        return "1.3.2.d updated by bspkrs";
+        return "ML 1.4.2.r01";
     }
 
     public void load()
     {
-        if(!isCurrentVersion(ModLoader.getMinecraftInstance()))
-            ModLoader.getLogger().log(Level.INFO, "Your version of CrystalWing is out of date! Visit http://www.minecraftforum.net/topic/1009577- for the latest version.");
+        versionChecker.checkVersionWithLogging();
     }
     
-    public boolean onTickInGame(float f, Minecraft minecraft)
-    {
-        if(!isCurrentVersion(minecraft) && minecraft.inGameHasFocus)
+    public boolean onTickInGame(float f, Minecraft mc)
+    {        
+        if(checkUpdate)
         {
-            minecraft.thePlayer.addChatMessage("&cYour version of CrystalWing is out of date!");
-            minecraft.thePlayer.addChatMessage("&cVisit http://www.minecraftforum.net/topic/1009577- for the latest version.");
+            if(!versionChecker.isCurrentVersion())
+                for(String msg : versionChecker.getInGameMessage())
+                    mc.thePlayer.addChatMessage(msg);
         }
-        return !minecraft.inGameHasFocus;
-    }
-    
-    private boolean isCurrentVersion(Minecraft minecraft)
-    {
-        try
-        {
-            String[] version = loadTextFromURL(new URL("https://dl.dropbox.com/u/20748481/Minecraft/1.3.1/crystalWing.version"));
-            return version[0].equalsIgnoreCase(getVersion());
-        }
-        catch(Exception e)
-        {
-            ModLoader.getLogger().log(Level.WARNING, "Error getting current version info: " + e.getStackTrace());
-            return true;
-        }
-    }
-
-    private String[] loadTextFromURL(URL url)
-    {
-        ArrayList arraylist = new ArrayList();
-        Scanner scanner = null;
-        try
-        {
-            scanner = new Scanner(url.openStream(), "UTF-8");
-        }
-        catch(FileNotFoundException filenotfoundexception) { } catch (IOException e) {
-            ModLoader.getLogger().log(Level.WARNING, "Error getting current version info: " + e.getStackTrace());
-        }
-        while(scanner.hasNextLine())
-        {
-            arraylist.add(scanner.nextLine());
-        }
-        scanner.close();
-        return (String[])arraylist.toArray(new String[arraylist.size()]);
+        return false;
     }
 }
