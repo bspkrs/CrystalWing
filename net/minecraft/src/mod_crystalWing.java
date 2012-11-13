@@ -28,7 +28,7 @@ public class mod_crystalWing extends BaseMod
 
     private boolean checkUpdate;
     private ModVersionChecker versionChecker;
-    private String versionURL = "https://dl.dropbox.com/u/20748481/Minecraft/1.4.2/crystalWing.version";
+    private String versionURL = "https://dl.dropbox.com/u/20748481/Minecraft/1.4.4/crystalWing.version";
     private String mcfTopic = "http://www.minecraftforum.net/topic/1009577-";
 
     public mod_crystalWing()
@@ -52,7 +52,7 @@ public class mod_crystalWing extends BaseMod
 
     public String getVersion()
     {
-        return "ML 1.4.2.r02";
+        return "ML 1.4.4.r01";
     }
 
     public void load()
