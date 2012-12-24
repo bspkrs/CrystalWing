@@ -2,6 +2,12 @@ package net.minecraft.src;
 
 import java.util.Random;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+
 public class ItemCrystalWingBurned extends Item
 {
 
