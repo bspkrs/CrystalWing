@@ -19,7 +19,7 @@ public class mod_crystalWing extends BaseMod
     
     public static boolean     allowUpdateCheck;
     private ModVersionChecker versionChecker;
-    private String            versionURL    = "https://dl.dropbox.com/u/20748481/Minecraft/1.4.6/crystalWing.version";
+    private String            versionURL    = "https://dl.dropbox.com/u/20748481/Minecraft/1.5.0/crystalWing.version";
     private String            mcfTopic      = "http://www.minecraftforum.net/topic/1009577-";
     
     public mod_crystalWing()
@@ -39,13 +39,13 @@ public class mod_crystalWing extends BaseMod
     @Override
     public String getVersion()
     {
-        return "ML 1.4.6.r02";
+        return "ML " + CrystalWing.VERSION_NUMBER;
     }
     
     @Override
     public String getPriorities()
     {
-        return "after:mod_bspkrsCore";
+        return "required-after:mod_bspkrsCore";
     }
     
     @Override
