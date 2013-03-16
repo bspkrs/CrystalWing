@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import bspkrs.crystalwing.CrystalWing;
 import bspkrs.util.ModVersionChecker;
 
-public class mod_crystalWing extends BaseMod
+public class mod_CrystalWing extends BaseMod
 {
     @MLProp
     public static int         idCrystalWing = 3100;
@@ -19,10 +19,10 @@ public class mod_crystalWing extends BaseMod
     
     public static boolean     allowUpdateCheck;
     private ModVersionChecker versionChecker;
-    private String            versionURL    = "https://dl.dropbox.com/u/20748481/Minecraft/1.5.0/crystalWing.version";
+    private String            versionURL    = "http://bspk.rs/Minecraft/1.5.0/crystalWing.version";
     private String            mcfTopic      = "http://www.minecraftforum.net/topic/1009577-";
     
-    public mod_crystalWing()
+    public mod_CrystalWing()
     {
         allowUpdateCheck = mod_bspkrsCore.allowUpdateCheck;
         
