@@ -9,10 +9,11 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
+import bspkrs.util.Const;
 
 public final class CrystalWing
 {
-    public final static String VERSION_NUMBER   = "1.5.1.r01";
+    public final static String VERSION_NUMBER   = Const.MCVERSION + ".r01";
     public int                 idCrystalWing    = 3100;
     public int                 idBurningWing    = 3101;
     public int                 idBurnedWing     = 3102;
