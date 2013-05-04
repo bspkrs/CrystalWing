@@ -13,13 +13,13 @@ import net.minecraft.world.chunk.IChunkProvider;
 public final class CrystalWing
 {
     public final static String VERSION_NUMBER   = "1.5.1.r01";
-    public static int          idCrystalWing    = 3100;
-    public static int          idBurningWing    = 3101;
-    public static int          idBurnedWing     = 3102;
+    public int                 idCrystalWing    = 3100;
+    public int                 idBurningWing    = 3101;
+    public int                 idBurnedWing     = 3102;
     public final static String usesDesc         = "Number of Crystal Wing uses. Set to 0 for infinite.";
-    public static int          uses             = 8;
+    public int                 uses             = 8;
     public final static String teleDistanceDesc = "Maximum distance for the Burned Wing random teleportation.";
-    public static int          teleDistance     = 500;
+    public int                 teleDistance     = 500;
     
     public final Item          crystalWing;
     public final Item          crystalWingBurning;
