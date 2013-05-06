@@ -9,18 +9,25 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
+import bspkrs.util.BSProp;
+import bspkrs.util.BSPropRegistry;
 import bspkrs.util.Const;
 
 public final class CrystalWing
 {
-    public final static String VERSION_NUMBER   = Const.MCVERSION + ".r01";
-    public int                 idCrystalWing    = 3100;
-    public int                 idBurningWing    = 3101;
-    public int                 idBurnedWing     = 3102;
-    public final static String usesDesc         = "Number of Crystal Wing uses. Set to 0 for infinite.";
-    public int                 uses             = 8;
-    public final static String teleDistanceDesc = "Maximum distance for the Burned Wing random teleportation.";
-    public int                 teleDistance     = 500;
+    public final static String VERSION_NUMBER = Const.MCVERSION + ".r02";
+    @BSProp
+    public static int          idCrystalWing  = 3100;
+    @BSProp
+    public static int          idBurningWing  = 3101;
+    @BSProp
+    public static int          idBurnedWing   = 3102;
+    @BSProp
+    public static int          idAchievement  = 1710;
+    @BSProp(info = "Number of Crystal Wing uses. Set to 0 for infinite.")
+    public static int          uses           = 8;
+    @BSProp(info = "Maximum distance for the Burned Wing random teleportation.\n\n**ONLY EDIT WHAT IS BELOW THIS**")
+    public static int          teleDistance   = 500;
     
     public final Item          crystalWing;
     public final Item          crystalWingBurning;
@@ -30,19 +37,15 @@ public final class CrystalWing
     public static CrystalWing  instance;
     public final boolean       isForgeVersion;
     
-    public CrystalWing(boolean isForgeVersion, int idCrystalWing, int idBurningWing, int idBurnedWing, int uses, int teleDistance)
+    public CrystalWing(boolean isForgeVersion)
     {
         instance = this;
+        BSPropRegistry.registerPropHandler(this.getClass());
         this.isForgeVersion = isForgeVersion;
-        this.idCrystalWing = idCrystalWing;
-        this.idBurningWing = idBurningWing;
-        this.idBurnedWing = idBurnedWing;
-        this.uses = uses;
-        this.teleDistance = teleDistance;
         crystalWing = (new ItemCrystalWing(idCrystalWing - 256)).setUnlocalizedName("crystalWing");
         crystalWingBurning = (new ItemCrystalWingBurning(idBurningWing - 256)).setUnlocalizedName("crystalWingBurning");
         crystalWingBurned = (new ItemCrystalWingBurned(idBurnedWing - 256, teleDistance)).setUnlocalizedName("crystalWingBurned");
-        burnedWing = (new Achievement(1710, "burnedWing", 9, -5, crystalWingBurning, null)).registerAchievement();
+        burnedWing = (new Achievement(idAchievement, "burnedWing", 9, -5, crystalWingBurning, null)).registerAchievement();
         
         if (uses > 0)
         {
