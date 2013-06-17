@@ -9,8 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import bspkrs.util.CommonUtils;
 
-import com.jcraft.jorbis.Block;
-
 public class ItemCrystalWingBurned extends Item
 {
     
@@ -24,7 +22,7 @@ public class ItemCrystalWingBurned extends Item
         teleDistance = j;
         rand = new Random();
         
-        if (Block.class.getSimpleName().equals("Block"))
+        if (CommonUtils.isObfuscatedEnv())
             this.setCreativeTab(CreativeTabs.tabTransport);
     }
     

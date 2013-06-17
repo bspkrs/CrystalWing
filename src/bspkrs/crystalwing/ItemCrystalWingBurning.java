@@ -1,11 +1,13 @@
 package bspkrs.crystalwing;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import bspkrs.util.CommonUtils;
 
 public class ItemCrystalWingBurning extends Item
 {
@@ -14,7 +16,9 @@ public class ItemCrystalWingBurning extends Item
     {
         super(i);
         maxStackSize = 1;
-        // this.setCreativeTab(CreativeTabs.tabTransport);
+        
+        if (CommonUtils.isObfuscatedEnv())
+            this.setCreativeTab(CreativeTabs.tabTransport);
     }
     
     @Override
