@@ -17,7 +17,7 @@ public class ItemCrystalWingBurning extends Item
         super(i);
         maxStackSize = 1;
         
-        if (CommonUtils.isObfuscatedEnv())
+        if (!CommonUtils.isObfuscatedEnv())
             this.setCreativeTab(CreativeTabs.tabTransport);
     }
     

@@ -9,7 +9,7 @@ public class mod_CrystalWing extends BaseMod
 {
     public static boolean     allowUpdateCheck;
     private ModVersionChecker versionChecker;
-    private String            versionURL = "http://bspk.rs/Minecraft/" + Const.MCVERSION + "/crystalWing.version";
+    private String            versionURL = Const.VERSION_URL + "/Minecraft/" + Const.MCVERSION + "/crystalWing.version";
     private String            mcfTopic   = "http://www.minecraftforum.net/topic/1009577-";
     
     public mod_CrystalWing()

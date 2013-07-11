@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
+import bspkrs.util.CommonUtils;
 
 public class ItemCrystalWing extends Item
 {
@@ -52,7 +53,7 @@ public class ItemCrystalWing extends Item
             }
             
             world.playSoundAtEntity(entityPlayer, "mob.endermen.portal", 1.0F, 1.0F);
-            entityPlayer.spawnExplosionParticle();
+            CommonUtils.spawnExplosionParticleAtEntity(entityPlayer);
             
             if (CrystalWing.instance.uses > 0)
                 itemStack.damageItem(1, entityPlayer);

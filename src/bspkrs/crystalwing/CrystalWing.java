@@ -15,7 +15,7 @@ import bspkrs.util.Const;
 
 public final class CrystalWing
 {
-    public final static String VERSION_NUMBER = Const.MCVERSION + ".r02";
+    public final static String VERSION_NUMBER = Const.MCVERSION + ".r01";
     @BSProp
     public static int          idCrystalWing  = 3100;
     @BSProp
@@ -42,9 +42,9 @@ public final class CrystalWing
         instance = this;
         BSPropRegistry.registerPropHandler(this.getClass());
         this.isForgeVersion = isForgeVersion;
-        crystalWing = (new ItemCrystalWing(idCrystalWing - 256)).setUnlocalizedName("crystalWing");
-        crystalWingBurning = (new ItemCrystalWingBurning(idBurningWing - 256)).setUnlocalizedName("crystalWingBurning");
-        crystalWingBurned = (new ItemCrystalWingBurned(idBurnedWing - 256, teleDistance)).setUnlocalizedName("crystalWingBurned");
+        crystalWing = (new ItemCrystalWing(idCrystalWing - 256)).setUnlocalizedName("crystalWing").func_111206_d("crystalWing");
+        crystalWingBurning = (new ItemCrystalWingBurning(idBurningWing - 256)).setUnlocalizedName("crystalWingBurning").func_111206_d("crystalWingBurning");
+        crystalWingBurned = (new ItemCrystalWingBurned(idBurnedWing - 256, teleDistance)).setUnlocalizedName("crystalWingBurned").func_111206_d("crystalWingBurned");
         burnedWing = (new Achievement(idAchievement, "burnedWing", 9, -5, crystalWingBurning, null)).registerAchievement();
         
         if (uses > 0)
@@ -55,7 +55,7 @@ public final class CrystalWing
         ModLoader.addName(crystalWing, "Crystal Wing");
         ModLoader.addName(crystalWingBurning, "Burning Wing");
         ModLoader.addName(crystalWingBurned, "Burned Wing");
-        ModLoader.addAchievementDesc(burnedWing, "To Hell And Back", "Get a Burned Wing by entering in water with a Burning Wing.");
+        ModLoader.addAchievementDesc(burnedWing, "To Hell And Back", "Get a Burned Wing by entering water with a Burning Wing.");
         ModLoader.addRecipe(new ItemStack(crystalWing, 1), new Object[] {
                 "GGG", "EFF", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('F'), Item.feather
         });

@@ -22,7 +22,7 @@ public class ItemCrystalWingBurned extends Item
         teleDistance = j;
         rand = new Random();
         
-        if (CommonUtils.isObfuscatedEnv())
+        if (!CommonUtils.isObfuscatedEnv())
             this.setCreativeTab(CreativeTabs.tabTransport);
     }
     
@@ -55,7 +55,7 @@ public class ItemCrystalWingBurned extends Item
             }
             
             world.playSoundAtEntity(entityPlayer, "mob.endermen.portal", 1.0F, 1.0F);
-            entityPlayer.spawnExplosionParticle();
+            CommonUtils.spawnExplosionParticleAtEntity(entityPlayer);
             
             // entityPlayer.setPosition(dX + 0.5D, i + 3, dZ + 0.5D);
             itemstack.stackSize--;
