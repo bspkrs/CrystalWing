@@ -27,6 +27,14 @@ public class ItemCrystalWingBurned extends Item
     }
     
     @Override
+    public Item setUnlocalizedName(String par1Str)
+    {
+        super.setUnlocalizedName(par1Str);
+        this.func_111206_d(par1Str.replaceAll("\\s", ""));
+        return this;
+    }
+    
+    @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityPlayer)
     {
         if (!world.isRemote)

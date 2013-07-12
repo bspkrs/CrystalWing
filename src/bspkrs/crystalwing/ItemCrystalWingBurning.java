@@ -11,7 +11,6 @@ import bspkrs.util.CommonUtils;
 
 public class ItemCrystalWingBurning extends Item
 {
-    
     public ItemCrystalWingBurning(int i)
     {
         super(i);
@@ -19,6 +18,14 @@ public class ItemCrystalWingBurning extends Item
         
         if (!CommonUtils.isObfuscatedEnv())
             this.setCreativeTab(CreativeTabs.tabTransport);
+    }
+    
+    @Override
+    public Item setUnlocalizedName(String par1Str)
+    {
+        super.setUnlocalizedName(par1Str);
+        this.func_111206_d(par1Str.replaceAll("\\s", ""));
+        return this;
     }
     
     @Override

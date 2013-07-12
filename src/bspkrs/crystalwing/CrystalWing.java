@@ -15,7 +15,7 @@ import bspkrs.util.Const;
 
 public final class CrystalWing
 {
-    public final static String VERSION_NUMBER = Const.MCVERSION + ".r01";
+    public final static String VERSION_NUMBER = Const.MCVERSION + ".r02";
     @BSProp
     public static int          idCrystalWing  = 3100;
     @BSProp
@@ -42,9 +42,9 @@ public final class CrystalWing
         instance = this;
         BSPropRegistry.registerPropHandler(this.getClass());
         this.isForgeVersion = isForgeVersion;
-        crystalWing = (new ItemCrystalWing(idCrystalWing - 256)).setUnlocalizedName("crystalWing").func_111206_d("crystalWing");
-        crystalWingBurning = (new ItemCrystalWingBurning(idBurningWing - 256)).setUnlocalizedName("crystalWingBurning").func_111206_d("crystalWingBurning");
-        crystalWingBurned = (new ItemCrystalWingBurned(idBurnedWing - 256, teleDistance)).setUnlocalizedName("crystalWingBurned").func_111206_d("crystalWingBurned");
+        crystalWing = (new ItemCrystalWing(idCrystalWing - 256)).setUnlocalizedName("crystalWing");
+        crystalWingBurning = (new ItemCrystalWingBurning(idBurningWing - 256)).setUnlocalizedName("crystalWingBurning");
+        crystalWingBurned = (new ItemCrystalWingBurned(idBurnedWing - 256, teleDistance)).setUnlocalizedName("crystalWingBurned");
         burnedWing = (new Achievement(idAchievement, "burnedWing", 9, -5, crystalWingBurning, null)).registerAchievement();
         
         if (uses > 0)
