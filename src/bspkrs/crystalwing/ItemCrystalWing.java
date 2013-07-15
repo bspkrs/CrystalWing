@@ -15,6 +15,11 @@ public class ItemCrystalWing extends Item
         super(i);
         maxStackSize = 1;
         this.setCreativeTab(CreativeTabs.tabTransport);
+        
+        if (CrystalWing.uses > 0)
+        {
+            setMaxDamage(CrystalWing.uses - 1);
+        }
     }
     
     @Override

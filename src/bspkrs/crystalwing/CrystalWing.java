@@ -15,7 +15,7 @@ import bspkrs.util.Const;
 
 public final class CrystalWing
 {
-    public final static String VERSION_NUMBER = Const.MCVERSION + ".r02";
+    public final static String VERSION_NUMBER = Const.MCVERSION + ".r03";
     @BSProp
     public static int          idCrystalWing  = 3100;
     @BSProp
@@ -47,11 +47,6 @@ public final class CrystalWing
         crystalWingBurned = (new ItemCrystalWingBurned(idBurnedWing - 256, teleDistance)).setUnlocalizedName("crystalWingBurned");
         burnedWing = (new Achievement(idAchievement, "burnedWing", 9, -5, crystalWingBurning, null)).registerAchievement();
         
-        if (uses > 0)
-        {
-            crystalWing.setMaxDamage(uses - 1);
-        }
-        
         ModLoader.addName(crystalWing, "Crystal Wing");
         ModLoader.addName(crystalWingBurning, "Burning Wing");
         ModLoader.addName(crystalWingBurned, "Burned Wing");
@@ -78,7 +73,7 @@ public final class CrystalWing
         ChunkCoordinates c = chunkCoords;
         Block block = Block.blocksList[world.getBlockId(c.posX, c.posY, c.posZ)];
         
-        if (block != null && block.isBed(world, c.posX, c.posY, c.posZ, null))
+        if (block != null && block.blockID == Block.bed.blockID)
         {
             return block.getBedSpawnPosition(world, c.posX, c.posY, c.posZ, null);
         }
