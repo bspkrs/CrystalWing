@@ -45,6 +45,7 @@ public class ItemCrystalWing extends Item
             else if (world.provider.dimensionId > 0)
                 return itemStack;
             
+            @SuppressWarnings("deprecation")
             ChunkCoordinates chunkCoords = entityPlayer.getBedLocation();
             
             if (chunkCoords == null)
@@ -68,7 +69,7 @@ public class ItemCrystalWing extends Item
             world.playSoundAtEntity(entityPlayer, "mob.endermen.portal", 1.0F, 1.0F);
             CommonUtils.spawnExplosionParticleAtEntity(entityPlayer);
             
-            if (CrystalWing.instance.uses > 0)
+            if (CrystalWing.uses > 0)
                 itemStack.damageItem(1, entityPlayer);
         }
         
