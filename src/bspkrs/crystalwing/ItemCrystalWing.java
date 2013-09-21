@@ -26,7 +26,7 @@ public class ItemCrystalWing extends Item
     public Item setUnlocalizedName(String par1Str)
     {
         super.setUnlocalizedName(par1Str);
-        this.func_111206_d(par1Str.replaceAll("\\s", ""));
+        this.setTextureName(par1Str.replaceAll("\\s", ""));
         return this;
     }
     

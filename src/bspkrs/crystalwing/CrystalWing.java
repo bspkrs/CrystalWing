@@ -15,7 +15,7 @@ import bspkrs.util.Const;
 
 public final class CrystalWing
 {
-    public final static String VERSION_NUMBER = Const.MCVERSION + ".r04";
+    public final static String VERSION_NUMBER = Const.MCVERSION + ".r01";
     @BSProp
     public static int          idCrystalWing  = 3100;
     @BSProp
