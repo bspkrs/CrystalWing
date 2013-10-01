@@ -1,8 +1,9 @@
 package net.minecraft.src;
 
 import net.minecraft.client.Minecraft;
-import bspkrs.crystalwing.CrystalWing;
+import bspkrs.crystalwing.CWSettings;
 import bspkrs.util.Const;
+import bspkrs.util.ForgeUtils;
 import bspkrs.util.ModVersionChecker;
 
 public class mod_CrystalWing extends BaseMod
@@ -29,7 +30,7 @@ public class mod_CrystalWing extends BaseMod
     @Override
     public String getVersion()
     {
-        return "ML " + CrystalWing.VERSION_NUMBER;
+        return "ML " + CWSettings.VERSION_NUMBER;
     }
     
     @Override
@@ -41,11 +42,14 @@ public class mod_CrystalWing extends BaseMod
     @Override
     public void load()
     {
-        if (allowUpdateCheck)
-            versionChecker.checkVersionWithLogging();
-        ModLoader.setInGameHook(this, true, true);
-        
-        new CrystalWing(false);
+        if (!ForgeUtils.isForgeEnv())
+        {
+            if (allowUpdateCheck)
+                versionChecker.checkVersionWithLogging();
+            ModLoader.setInGameHook(this, true, true);
+            
+            new CWSettings(false);
+        }
     }
     
     @Override

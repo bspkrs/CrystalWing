@@ -16,9 +16,9 @@ public class ItemCrystalWing extends Item
         maxStackSize = 1;
         this.setCreativeTab(CreativeTabs.tabTransport);
         
-        if (CrystalWing.uses > 0)
+        if (CWSettings.uses > 0)
         {
-            setMaxDamage(CrystalWing.uses - 1);
+            setMaxDamage(CWSettings.uses - 1);
         }
     }
     
@@ -39,7 +39,7 @@ public class ItemCrystalWing extends Item
             {
                 itemStack = null;
                 world.playSoundAtEntity(entityPlayer, "fire.ignite", 1.0F, 1.0F);
-                itemStack = new ItemStack(CrystalWing.instance.crystalWingBurning, 1);
+                itemStack = new ItemStack(CWSettings.instance.crystalWingBurning, 1);
                 return itemStack;
             }
             else if (world.provider.dimensionId > 0)
@@ -51,7 +51,7 @@ public class ItemCrystalWing extends Item
             if (chunkCoords == null)
                 chunkCoords = world.getSpawnPoint();
             
-            chunkCoords = CrystalWing.verifyRespawnCoordinates(world, chunkCoords, false);
+            chunkCoords = CWSettings.verifyRespawnCoordinates(world, chunkCoords, false);
             
             if (chunkCoords == null)
                 chunkCoords = world.getSpawnPoint();
@@ -69,7 +69,7 @@ public class ItemCrystalWing extends Item
             world.playSoundAtEntity(entityPlayer, "mob.endermen.portal", 1.0F, 1.0F);
             CommonUtils.spawnExplosionParticleAtEntity(entityPlayer);
             
-            if (CrystalWing.uses > 0)
+            if (CWSettings.uses > 0)
                 itemStack.damageItem(1, entityPlayer);
         }
         

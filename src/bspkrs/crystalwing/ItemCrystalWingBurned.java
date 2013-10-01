@@ -41,7 +41,7 @@ public class ItemCrystalWingBurned extends Item
         {
             if (entityPlayer.dimension == -1)
             {
-                return CrystalWing.instance.crystalWing.onItemRightClick(itemstack, world, entityPlayer);
+                return CWSettings.instance.crystalWing.onItemRightClick(itemstack, world, entityPlayer);
             }
             world.playSoundAtEntity(entityPlayer, "fire.ignite", 1.0F, 0.5F);
             int dX = (int) ((entityPlayer.posX + rand.nextInt(teleDistance * 2)) - teleDistance);

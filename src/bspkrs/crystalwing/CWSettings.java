@@ -1,5 +1,7 @@
 package bspkrs.crystalwing;
 
+import java.io.File;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -9,38 +11,35 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
-import bspkrs.util.BSProp;
-import bspkrs.util.BSPropRegistry;
+import bspkrs.util.CommonUtils;
+import bspkrs.util.Configuration;
 import bspkrs.util.Const;
 
-public final class CrystalWing
+public final class CWSettings
 {
-    public final static String VERSION_NUMBER = Const.MCVERSION + ".r01";
-    @BSProp
-    public static int          idCrystalWing  = 3100;
-    @BSProp
-    public static int          idBurningWing  = 3101;
-    @BSProp
-    public static int          idBurnedWing   = 3102;
-    @BSProp
-    public static int          idAchievement  = 1710;
-    @BSProp(info = "Number of Crystal Wing uses. Set to 0 for infinite.")
-    public static int          uses           = 8;
-    @BSProp(info = "Maximum distance for the Burned Wing random teleportation.\n\n**ONLY EDIT WHAT IS BELOW THIS**")
-    public static int          teleDistance   = 500;
+    public final static String  VERSION_NUMBER    = Const.MCVERSION + ".r02";
     
-    public final Item          crystalWing;
-    public final Item          crystalWingBurning;
-    public final Item          crystalWingBurned;
-    public final Achievement   burnedWing;
+    public static int           idCrystalWing     = 3100;
+    public static int           idBurningWing     = 3101;
+    public static int           idBurnedWing      = 3102;
+    public static int           idAchievement     = 1710;
+    public static int           uses              = 8;
+    public static int           teleDistance      = 500;
     
-    public static CrystalWing  instance;
-    public final boolean       isForgeVersion;
+    public final Item           crystalWing;
+    public final Item           crystalWingBurning;
+    public final Item           crystalWingBurned;
+    public final Achievement    burnedWing;
     
-    public CrystalWing(boolean isForgeVersion)
+    public static CWSettings    instance;
+    
+    public static Configuration config;
+    public static boolean       allowDebugLogging = true;
+    public final boolean        isForgeVersion;
+    
+    public CWSettings(boolean isForgeVersion)
     {
         instance = this;
-        BSPropRegistry.registerPropHandler(this.getClass());
         this.isForgeVersion = isForgeVersion;
         crystalWing = (new ItemCrystalWing(idCrystalWing - 256)).setUnlocalizedName("crystalWing");
         crystalWingBurning = (new ItemCrystalWingBurning(idBurningWing - 256)).setUnlocalizedName("crystalWingBurning");
@@ -54,6 +53,30 @@ public final class CrystalWing
         ModLoader.addRecipe(new ItemStack(crystalWing, 1), new Object[] {
                 "GGG", "EFF", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('F'), Item.feather
         });
+    }
+    
+    public static void loadConfig(File file)
+    {
+        String ctgyGen = Configuration.CATEGORY_GENERAL;
+        
+        if (!CommonUtils.isObfuscatedEnv())
+        { // debug settings for deobfuscated execution
+          //            if (file.exists())
+          //                file.delete();
+        }
+        
+        config = new Configuration(file);
+        
+        config.load();
+        
+        idCrystalWing = config.getItem("idCrystalWing", idCrystalWing).getInt(idCrystalWing);
+        idBurningWing = config.getItem("idBurningWing", idBurningWing).getInt(idBurningWing);
+        idBurnedWing = config.getItem("idBurnedWing", idBurnedWing).getInt(idBurnedWing);
+        idAchievement = config.getInt("idAchievement", ctgyGen, idAchievement, 1, 2000, "");
+        uses = config.getInt("uses", ctgyGen, uses, 0, 5280, "Number of Crystal Wing uses. Set to 0 for infinite.");
+        teleDistance = config.getInt("teleDistance", ctgyGen, teleDistance, 50, 50000, "Maximum distance for the Burned Wing random teleportation.");
+        
+        config.save();
     }
     
     /**
