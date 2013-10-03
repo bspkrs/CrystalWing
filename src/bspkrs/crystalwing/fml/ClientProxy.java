@@ -13,13 +13,6 @@ public class ClientProxy extends CommonProxy
     @Override
     public void onLoad()
     {
-        new CWClient();
         TickRegistry.registerTickHandler(new CWTicker(EnumSet.of(TickType.CLIENT)), Side.CLIENT);
-    }
-    
-    @Override
-    public boolean isEnabled()
-    {
-        return CWClient.instance().serverDetected;
     }
 }

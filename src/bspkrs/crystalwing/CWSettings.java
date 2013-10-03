@@ -14,46 +14,29 @@ import net.minecraft.world.chunk.IChunkProvider;
 import bspkrs.util.CommonUtils;
 import bspkrs.util.Configuration;
 import bspkrs.util.Const;
+import bspkrs.util.ForgeUtils;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public final class CWSettings
 {
     public final static String  VERSION_NUMBER    = Const.MCVERSION + ".r02";
     
-    public static int           idCrystalWing     = 3100;
-    public static int           idBurningWing     = 3101;
-    public static int           idBurnedWing      = 3102;
+    public static int           idCrystalWing     = 23100;
+    public static int           idBurningWing     = 23101;
+    public static int           idBurnedWing      = 23102;
     public static int           idAchievement     = 1710;
     public static int           uses              = 8;
     public static int           teleDistance      = 500;
     
-    public final Item           crystalWing;
-    public final Item           crystalWingBurning;
-    public final Item           crystalWingBurned;
-    public final Achievement    burnedWing;
-    
-    public static CWSettings    instance;
+    public static Item          crystalWing;
+    public static Item          crystalWingBurning;
+    public static Item          crystalWingBurned;
+    public static Achievement   burnedWing;
     
     public static Configuration config;
     public static boolean       allowDebugLogging = true;
-    public final boolean        isForgeVersion;
-    
-    public CWSettings(boolean isForgeVersion)
-    {
-        instance = this;
-        this.isForgeVersion = isForgeVersion;
-        crystalWing = (new ItemCrystalWing(idCrystalWing - 256)).setUnlocalizedName("crystalWing");
-        crystalWingBurning = (new ItemCrystalWingBurning(idBurningWing - 256)).setUnlocalizedName("crystalWingBurning");
-        crystalWingBurned = (new ItemCrystalWingBurned(idBurnedWing - 256, teleDistance)).setUnlocalizedName("crystalWingBurned");
-        burnedWing = (new Achievement(idAchievement, "burnedWing", 9, -5, crystalWingBurning, null)).registerAchievement();
-        
-        ModLoader.addName(crystalWing, "Crystal Wing");
-        ModLoader.addName(crystalWingBurning, "Burning Wing");
-        ModLoader.addName(crystalWingBurned, "Burned Wing");
-        ModLoader.addAchievementDesc(burnedWing, "To Hell And Back", "Get a Burned Wing by entering water with a Burning Wing.");
-        ModLoader.addRecipe(new ItemStack(crystalWing, 1), new Object[] {
-                "GGG", "EFF", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('F'), Item.feather
-        });
-    }
+    public static boolean       isForgeVersion    = ForgeUtils.isForgeEnv();
     
     public static void loadConfig(File file)
     {
@@ -73,10 +56,45 @@ public final class CWSettings
         idBurningWing = config.getItem("idBurningWing", idBurningWing).getInt(idBurningWing);
         idBurnedWing = config.getItem("idBurnedWing", idBurnedWing).getInt(idBurnedWing);
         idAchievement = config.getInt("idAchievement", ctgyGen, idAchievement, 1, 2000, "");
+        allowDebugLogging = config.getBoolean("allowDebugLogging", ctgyGen, allowDebugLogging, "");
         uses = config.getInt("uses", ctgyGen, uses, 0, 5280, "Number of Crystal Wing uses. Set to 0 for infinite.");
         teleDistance = config.getInt("teleDistance", ctgyGen, teleDistance, 50, 50000, "Maximum distance for the Burned Wing random teleportation.");
         
         config.save();
+    }
+    
+    public static void registerStuff()
+    {
+        crystalWing = (new ItemCrystalWing(idCrystalWing - 256)).setUnlocalizedName("crystalWing");
+        crystalWingBurning = (new ItemCrystalWingBurning(idBurningWing - 256)).setUnlocalizedName("crystalWingBurning");
+        crystalWingBurned = (new ItemCrystalWingBurned(idBurnedWing - 256, teleDistance)).setUnlocalizedName("crystalWingBurned");
+        
+        if (isForgeVersion)
+        {
+            LanguageRegistry.addName(crystalWing, "Crystal Wing");
+            LanguageRegistry.addName(crystalWingBurning, "Burning Wing");
+            LanguageRegistry.addName(crystalWingBurned, "Burned Wing");
+            
+            GameRegistry.addRecipe(new ItemStack(crystalWing, 1), new Object[] {
+                    "GGG", "EFF", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('F'), Item.feather
+            });
+            
+            burnedWing = (new Achievement(idAchievement, "burnedWing", 9, -5, crystalWingBurning, null)).registerAchievement();
+            LanguageRegistry.instance().addStringLocalization("achievement.burnedWing", "en_US", "To Hell And Back");
+            LanguageRegistry.instance().addStringLocalization("achievement.burnedWing.desc", "en_US", "Get a Burned Wing by entering water with a Burning Wing.");
+        }
+        else
+        {
+            burnedWing = (new Achievement(idAchievement, "burnedWing", 9, -5, crystalWingBurning, null)).registerAchievement();
+            
+            ModLoader.addName(crystalWing, "Crystal Wing");
+            ModLoader.addName(crystalWingBurning, "Burning Wing");
+            ModLoader.addName(crystalWingBurned, "Burned Wing");
+            ModLoader.addAchievementDesc(burnedWing, "To Hell And Back", "Get a Burned Wing by entering water with a Burning Wing.");
+            ModLoader.addRecipe(new ItemStack(crystalWing, 1), new Object[] {
+                    "GGG", "EFF", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('F'), Item.feather
+            });
+        }
     }
     
     /**

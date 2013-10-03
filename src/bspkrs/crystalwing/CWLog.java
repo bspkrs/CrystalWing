@@ -27,7 +27,7 @@ public enum CWLog
         if (logger != null)
             return;
         
-        logger = Logger.getLogger("TreeCapitator");
+        logger = Logger.getLogger("CrystalWing");
         logger.setParent(ModLoader.getLogger());
     }
     

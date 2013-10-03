@@ -47,8 +47,6 @@ public class mod_CrystalWing extends BaseMod
             if (allowUpdateCheck)
                 versionChecker.checkVersionWithLogging();
             ModLoader.setInGameHook(this, true, true);
-            
-            new CWSettings(false);
         }
     }
     

@@ -37,7 +37,7 @@ public class ItemCrystalWingBurning extends Item
             {
                 EntityPlayer entityplayer = (EntityPlayer) entity;
                 world.playSoundAtEntity(entity, "random.fizz", 1.0F, 1.0F);
-                entityplayer.addStat(CWSettings.instance.burnedWing, 1);
+                entityplayer.addStat(CWSettings.burnedWing, 1);
                 replaceWings(entityplayer.inventory);
             }
             return;
@@ -58,7 +58,7 @@ public class ItemCrystalWingBurning extends Item
             ItemStack itemstack = inventoryplayer.getStackInSlot(i);
             if (itemstack.getItem() instanceof ItemCrystalWingBurning)
             {
-                itemstack.itemID = CWSettings.instance.crystalWingBurned.itemID;
+                itemstack.itemID = CWSettings.crystalWingBurned.itemID;
                 inventoryplayer.setInventorySlotContents(i, itemstack);
             }
         }

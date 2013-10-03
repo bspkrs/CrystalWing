@@ -39,14 +39,13 @@ public class ItemCrystalWing extends Item
             {
                 itemStack = null;
                 world.playSoundAtEntity(entityPlayer, "fire.ignite", 1.0F, 1.0F);
-                itemStack = new ItemStack(CWSettings.instance.crystalWingBurning, 1);
+                itemStack = new ItemStack(CWSettings.crystalWingBurning, 1);
                 return itemStack;
             }
             else if (world.provider.dimensionId > 0)
                 return itemStack;
             
-            @SuppressWarnings("deprecation")
-            ChunkCoordinates chunkCoords = entityPlayer.getBedLocation();
+            ChunkCoordinates chunkCoords = entityPlayer.getBedLocation(0);
             
             if (chunkCoords == null)
                 chunkCoords = world.getSpawnPoint();

@@ -12,22 +12,17 @@ import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 
 @Mod(name = "CrystalWing", modid = "CrystalWing", version = "Forge " + CWSettings.VERSION_NUMBER, dependencies = "required-after:mod_bspkrsCore", useMetadata = true)
-@NetworkMod(clientSideRequired = true, serverSideRequired = false,
-        clientPacketHandlerSpec = @SidedPacketHandler(channels = { "CrystalWing" }, packetHandler = CWClient.class),
-        serverPacketHandlerSpec = @SidedPacketHandler(channels = { "CrystalWing" }, packetHandler = CWServer.class),
-        connectionHandler = ConnectionHandler.class)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class CrystalWingMod
 {
     public static ModVersionChecker versionChecker;
     private String                  versionURL = Const.VERSION_URL + "/Minecraft/" + Const.MCVERSION + "/crystalWingForge.version";
     private String                  mcfTopic   = "http://www.minecraftforum.net/topic/1009577-";
     
-    @Metadata(value = "BlockBreaker")
+    @Metadata(value = "CrystalWing")
     public static ModMetadata       metadata;
     
     @SidedProxy(clientSide = "bspkrs.crystalwing.fml.ClientProxy", serverSide = "bspkrs.crystalwing.fml.CommonProxy")
@@ -57,12 +52,7 @@ public class CrystalWingMod
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
+        CWSettings.registerStuff();
         proxy.onLoad();
-    }
-    
-    @EventHandler
-    public void serverStarted(FMLServerStartedEvent event)
-    {
-        new CWServer();
     }
 }
