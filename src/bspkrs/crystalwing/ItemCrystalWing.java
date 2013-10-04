@@ -43,7 +43,7 @@ public class ItemCrystalWing extends Item
                 itemStack = new ItemStack(CWSettings.crystalWingBurning, 1);
                 return itemStack;
             }
-            else if (world.provider.dimensionId > 0)
+            else if (world.provider.dimensionId > 0 && !CWSettings.isForgeVersion)
                 return itemStack;
             
             ChunkCoordinates chunkCoords = entityPlayer.getBedLocation(world.provider.dimensionId);
