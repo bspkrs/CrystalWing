@@ -30,7 +30,7 @@ public class ItemCrystalWingBurned extends Item
     public Item setUnlocalizedName(String par1Str)
     {
         super.setUnlocalizedName(par1Str);
-        this.setTextureName(par1Str.replaceAll("\\s", ""));
+        this.setTextureName(par1Str.replaceAll("\\.", ":"));
         return this;
     }
     

@@ -5,9 +5,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import bspkrs.util.CommonUtils;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class ItemCrystalWing extends Item
 {
@@ -27,7 +27,7 @@ public class ItemCrystalWing extends Item
     public Item setUnlocalizedName(String par1Str)
     {
         super.setUnlocalizedName(par1Str);
-        this.setTextureName(par1Str.replaceAll("\\s", ""));
+        this.setTextureName(par1Str.replaceAll("\\.", ":"));
         return this;
     }
     
@@ -57,7 +57,7 @@ public class ItemCrystalWing extends Item
                 chunkCoords = world.getSpawnPoint();
             
             if (CWSettings.isForgeVersion)
-                entityPlayer.addChatMessage(LanguageRegistry.instance().getStringLocalization("crystalwing.teleporthome.chatmessage"));
+                entityPlayer.addChatMessage(StatCollector.translateToLocal("crystalwing.teleporthome.chatmessage"));
             else
                 entityPlayer.addChatMessage("Magical winds brought you home");
             
