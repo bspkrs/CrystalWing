@@ -19,7 +19,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class CWSettings
 {
-    public final static String  VERSION_NUMBER    = Const.MCVERSION + ".r02";
+    public final static String  VERSION_NUMBER    = Const.MCVERSION + ".r03";
     
     public static int           idCrystalWing     = 23100;
     public static int           idBurningWing     = 23101;
