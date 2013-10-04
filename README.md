@@ -1,11 +1,12 @@
 CrystalWing
 =================
 DaftPVF's CrystalWing mod for Minecraft.  Crafted from 3 gold ingots, 2 feathers, and 1 ender pearl, this magical wing will teleport you home!
-This repo contains source files for ModLoader (dependant on bspkrsCore).
+This repo contains source files for ModLoader and Forge (dependant on bspkrsCore).
 
 ### Links of Interest
  - [Official Minecraft Forum Thread](http://www.minecraftforum.net/topic/1009577-)
  - [ModLoader Downloads](http://bspk.rs/MC/CrystalWing/index.html)
+ - [Forge Downloads](http://bspk.rs/MC/CrystalWing_Forge/index.html)
  - [Issue Tracking System](https://github.com/bspkrs/CrystalWing/issues)
  
 * * *
@@ -24,7 +25,7 @@ This repo contains source files for ModLoader (dependant on bspkrsCore).
 2. In the CrystalWing repo folder, make a copy of build.properties_example and name it build.properties.
 3. Edit the values in build.properties to contain valid paths on your system for each property. Details can be found in build.properties_example.
 4. From a console window run "ant" from the CrystalWing repo folder. The build will create its output in the bin folder.
-5. Install the resulting mod archive by copying it to the mods folder on the client.
+5. Install the resulting mod archive by copying it to the mods folder on the client or server (Forge only). The Forge version of the mod is universal and works on both the client and the server.
 
 * * *
 
