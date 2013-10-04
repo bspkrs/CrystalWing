@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import bspkrs.util.CommonUtils;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class ItemCrystalWing extends Item
 {
@@ -45,7 +46,7 @@ public class ItemCrystalWing extends Item
             else if (world.provider.dimensionId > 0)
                 return itemStack;
             
-            ChunkCoordinates chunkCoords = entityPlayer.getBedLocation(0);
+            ChunkCoordinates chunkCoords = entityPlayer.getBedLocation(world.provider.dimensionId);
             
             if (chunkCoords == null)
                 chunkCoords = world.getSpawnPoint();
@@ -55,7 +56,11 @@ public class ItemCrystalWing extends Item
             if (chunkCoords == null)
                 chunkCoords = world.getSpawnPoint();
             
-            entityPlayer.addChatMessage("Magical winds brought you home");
+            if (CWSettings.isForgeVersion)
+                entityPlayer.addChatMessage(LanguageRegistry.instance().getStringLocalization("crystalwing.teleporthome.chatmessage"));
+            else
+                entityPlayer.addChatMessage("Magical winds brought you home");
+            
             entityPlayer.rotationPitch = 0.0F;
             entityPlayer.rotationYaw = 0.0F;
             entityPlayer.setPositionAndUpdate(chunkCoords.posX + 0.5D, chunkCoords.posY + 0.1D, chunkCoords.posZ);

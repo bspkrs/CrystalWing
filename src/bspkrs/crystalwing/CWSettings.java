@@ -11,12 +11,12 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
+import bspkrs.crystalwing.localization.LocalizationHandler;
 import bspkrs.util.CommonUtils;
 import bspkrs.util.Configuration;
 import bspkrs.util.Const;
 import bspkrs.util.ForgeUtils;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public final class CWSettings
 {
@@ -65,23 +65,29 @@ public final class CWSettings
     
     public static void registerStuff()
     {
-        crystalWing = (new ItemCrystalWing(idCrystalWing - 256)).setUnlocalizedName("crystalWing");
-        crystalWingBurning = (new ItemCrystalWingBurning(idBurningWing - 256)).setUnlocalizedName("crystalWingBurning");
-        crystalWingBurned = (new ItemCrystalWingBurned(idBurnedWing - 256, teleDistance)).setUnlocalizedName("crystalWingBurned");
+        String prefix = "minecraft:";
+        if (isForgeVersion)
+            prefix = "crystalwing:";
+        
+        crystalWing = (new ItemCrystalWing(idCrystalWing - 256)).setUnlocalizedName(prefix + "crystalWing");
+        crystalWingBurning = (new ItemCrystalWingBurning(idBurningWing - 256)).setUnlocalizedName(prefix + "crystalWingBurning");
+        crystalWingBurned = (new ItemCrystalWingBurned(idBurnedWing - 256, teleDistance)).setUnlocalizedName(prefix + "crystalWingBurned");
         
         if (isForgeVersion)
         {
-            LanguageRegistry.addName(crystalWing, "Crystal Wing");
-            LanguageRegistry.addName(crystalWingBurning, "Burning Wing");
-            LanguageRegistry.addName(crystalWingBurned, "Burned Wing");
+            //            LanguageRegistry.addName(crystalWing, "Crystal Wing");
+            //            LanguageRegistry.addName(crystalWingBurning, "Burning Wing");
+            //            LanguageRegistry.addName(crystalWingBurned, "Burned Wing");
+            //            LanguageRegistry.instance().addStringLocalization("achievement.burnedWing", "en_US", "To Hell And Back");
+            //            LanguageRegistry.instance().addStringLocalization("achievement.burnedWing.desc", "en_US", "Get a Burned Wing by entering water with a Burning Wing.");
             
             GameRegistry.addRecipe(new ItemStack(crystalWing, 1), new Object[] {
                     "GGG", "EFF", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('F'), Item.feather
             });
             
             burnedWing = (new Achievement(idAchievement, "burnedWing", 9, -5, crystalWingBurning, null)).registerAchievement();
-            LanguageRegistry.instance().addStringLocalization("achievement.burnedWing", "en_US", "To Hell And Back");
-            LanguageRegistry.instance().addStringLocalization("achievement.burnedWing.desc", "en_US", "Get a Burned Wing by entering water with a Burning Wing.");
+            
+            LocalizationHandler.instance.loadLanguages();
         }
         else
         {

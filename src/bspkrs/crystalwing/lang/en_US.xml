@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version="1.0">
+  <comment>English (US) Localization File</comment>
+  <entry key="item.crystalwing.crystalWing.name">Crystal Wing</entry>
+  <entry key="item.crystalwing.crystalWingBurning.name">Burning Wing</entry>
+  <entry key="item.crystalwing.crystalWingBurned.name">Burned Wing</entry>
+  <entry key="achievement.burnedWing">To Hell And Back</entry>
+  <entry key="achievement.burnedWing.desc">Get a Burned Wing by entering water with a Burning Wing.</entry>
+  <entry key="crystalwing.teleporthome.chatmessage">Magical winds brought you home</entry>
+</properties>
