@@ -1,6 +1,6 @@
-item.crystalwing.crystalWing.name=Crystal Wing
-item.crystalwing.crystalWingBurning.name=Burning Wing
-item.crystalwing.crystalWingBurned.name=Burned Wing
-achievement.burnedWing=To Hell And Back
+item.crystalwing.crystalWing.name=Aile de crystal
+item.crystalwing.crystalWingBurning.name=Aile en feu
+item.crystalwing.crystalWingBurned.name=Aile brulée
+achievement.burnedWing=En enfer et de retour
 achievement.burnedWing.desc=Get a Burned Wing by entering water with a Burning Wing.
-crystalwing.teleporthome.chatmessage=Magical winds brought you home
+crystalwing.teleporthome.chatmessage=Une aile magique te ramène à la maison
