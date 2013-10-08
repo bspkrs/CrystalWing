@@ -1,5 +1,12 @@
 package bspkrs.crystalwing;
 
+import static net.minecraftforge.common.ChestGenHooks.BONUS_CHEST;
+import static net.minecraftforge.common.ChestGenHooks.DUNGEON_CHEST;
+import static net.minecraftforge.common.ChestGenHooks.PYRAMID_DESERT_CHEST;
+import static net.minecraftforge.common.ChestGenHooks.PYRAMID_JUNGLE_CHEST;
+import static net.minecraftforge.common.ChestGenHooks.STRONGHOLD_LIBRARY;
+import static net.minecraftforge.common.ChestGenHooks.VILLAGE_BLACKSMITH;
+
 import java.io.File;
 
 import net.minecraft.block.Block;
@@ -9,8 +16,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.src.ModLoader;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraftforge.common.ChestGenHooks;
 import bspkrs.util.CommonUtils;
 import bspkrs.util.Configuration;
 import bspkrs.util.Const;
@@ -57,7 +66,7 @@ public final class CWSettings
         idAchievement = config.getInt("idAchievement", ctgyGen, idAchievement, 1, 2000, "");
         allowDebugLogging = config.getBoolean("allowDebugLogging", ctgyGen, allowDebugLogging, "");
         uses = config.getInt("uses", ctgyGen, uses, 0, 5280, "Number of Crystal Wing uses. Set to 0 for infinite.");
-        teleDistance = config.getInt("teleDistance", ctgyGen, teleDistance, 50, 50000, "Maximum distance for the Burned Wing random teleportation.");
+        teleDistance = config.getInt("teleDistance", ctgyGen, teleDistance, 100, 50000, "Maximum distance for the Burned Wing random teleportation.");
         
         config.save();
     }
@@ -80,14 +89,19 @@ public final class CWSettings
         {
             burnedWing = (new Achievement(idAchievement, "burnedWing", 9, -5, crystalWingBurning, null)).registerAchievement();
             
-            ModLoader.addName(crystalWing, "Crystal Wing");
-            ModLoader.addName(crystalWingBurning, "Burning Wing");
-            ModLoader.addName(crystalWingBurned, "Burned Wing");
-            ModLoader.addAchievementDesc(burnedWing, "To Hell And Back", "Get a Burned Wing by entering water with a Burning Wing.");
             ModLoader.addRecipe(new ItemStack(crystalWing, 1), new Object[] {
                     "GGG", "EFF", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('F'), Item.feather
             });
         }
+        
+        ChestGenHooks.addItem(PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 3));
+        ChestGenHooks.addItem(PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWingBurned, 1), 1, 1, 2));
+        ChestGenHooks.addItem(PYRAMID_JUNGLE_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 2));
+        ChestGenHooks.addItem(STRONGHOLD_LIBRARY, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 2));
+        ChestGenHooks.addItem(VILLAGE_BLACKSMITH, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 2));
+        ChestGenHooks.addItem(BONUS_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 2));
+        ChestGenHooks.addItem(DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 3));
+        ChestGenHooks.addItem(DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWingBurned, 1), 1, 1, 2));
     }
     
     /**
