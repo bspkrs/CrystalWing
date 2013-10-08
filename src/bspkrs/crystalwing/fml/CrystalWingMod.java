@@ -42,6 +42,8 @@ public class CrystalWingMod
         metadata = event.getModMetadata();
         CWSettings.loadConfig(event.getSuggestedConfigurationFile());
         
+        CWSettings.registerStuff();
+        
         if (bspkrsCoreProxy.instance.allowUpdateCheck)
         {
             versionChecker = new ModVersionChecker(metadata.name, metadata.version, versionURL, mcfTopic);
@@ -52,7 +54,6 @@ public class CrystalWingMod
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        CWSettings.registerStuff();
         proxy.onLoad();
     }
 }
