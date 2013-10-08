@@ -1,5 +1,7 @@
-1.6.4.r03 - 04-Oct-2013
+1.6.4.r03 - 08-Oct-2013
 - added a bunch of localizations
+- fixed duplicate stat ID crash
+- added items as potential chest loot!
 1.6.4.r02 - 04-Oct-2013
 - refactored mod for Forge release
 1.6.4.r01 - 20-Sep-2013
