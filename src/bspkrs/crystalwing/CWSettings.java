@@ -13,7 +13,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.ModLoader;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.WeightedRandomChestContent;
@@ -23,12 +22,11 @@ import net.minecraftforge.common.ChestGenHooks;
 import bspkrs.util.CommonUtils;
 import bspkrs.util.Configuration;
 import bspkrs.util.Const;
-import bspkrs.util.ForgeUtils;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class CWSettings
 {
-    public final static String  VERSION_NUMBER    = Const.MCVERSION + ".r03";
+    public final static String  VERSION_NUMBER    = Const.MCVERSION + ".r04";
     
     public static int           idCrystalWing     = 23100;
     public static int           idBurningWing     = 23101;
@@ -44,7 +42,6 @@ public final class CWSettings
     
     public static Configuration config;
     public static boolean       allowDebugLogging = true;
-    public static boolean       isForgeVersion    = ForgeUtils.isForgeEnv();
     
     public static void loadConfig(File file)
     {
@@ -77,22 +74,11 @@ public final class CWSettings
         crystalWingBurning = (new ItemCrystalWingBurning(idBurningWing - 256)).setUnlocalizedName("crystalwing.crystalWingBurning");
         crystalWingBurned = (new ItemCrystalWingBurned(idBurnedWing - 256, teleDistance)).setUnlocalizedName("crystalwing.crystalWingBurned");
         
-        if (isForgeVersion)
-        {
-            GameRegistry.addRecipe(new ItemStack(crystalWing, 1), new Object[] {
-                    "GGG", "EFF", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('F'), Item.feather
-            });
-            
-            burnedWing = (new Achievement(idAchievement, "burnedWing", 9, -5, crystalWingBurning, null)).registerAchievement();
-        }
-        else
-        {
-            burnedWing = (new Achievement(idAchievement, "burnedWing", 9, -5, crystalWingBurning, null)).registerAchievement();
-            
-            ModLoader.addRecipe(new ItemStack(crystalWing, 1), new Object[] {
-                    "GGG", "EFF", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('F'), Item.feather
-            });
-        }
+        GameRegistry.addRecipe(new ItemStack(crystalWing, 1), new Object[] {
+                "GGG", "EFF", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('F'), Item.feather
+        });
+        
+        burnedWing = (new Achievement(idAchievement, "burnedWing", 9, -5, crystalWingBurning, null)).registerAchievement();
         
         ChestGenHooks.addItem(PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 3));
         ChestGenHooks.addItem(PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWingBurned, 1), 1, 1, 2));

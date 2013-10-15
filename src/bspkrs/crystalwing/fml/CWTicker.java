@@ -3,7 +3,7 @@ package bspkrs.crystalwing.fml;
 import java.util.EnumSet;
 
 import net.minecraft.client.Minecraft;
-import bspkrs.fml.util.bspkrsCoreProxy;
+import bspkrs.bspkrscore.fml.bspkrsCoreMod;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
@@ -56,8 +56,8 @@ public class CWTicker implements ITickHandler
         
         if (mcClient != null && mcClient.thePlayer != null)
         {
-            if (bspkrsCoreProxy.instance.allowUpdateCheck && CrystalWingMod.versionChecker != null)
-                if (!CrystalWingMod.versionChecker.isCurrentVersionBySubStringAsFloatNewer(CrystalWingMod.metadata.version.length() - 2, CrystalWingMod.metadata.version.length()))
+            if (bspkrsCoreMod.instance.allowUpdateCheck && CrystalWingMod.versionChecker != null)
+                if (!CrystalWingMod.versionChecker.isCurrentVersion())
                     for (String msg : CrystalWingMod.versionChecker.getInGameMessage())
                         mcClient.thePlayer.addChatMessage(msg);
             

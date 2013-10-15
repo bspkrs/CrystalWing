@@ -1,7 +1,7 @@
 package bspkrs.crystalwing.fml;
 
+import bspkrs.bspkrscore.fml.bspkrsCoreMod;
 import bspkrs.crystalwing.CWSettings;
-import bspkrs.fml.util.bspkrsCoreProxy;
 import bspkrs.util.Const;
 import bspkrs.util.ModVersionChecker;
 import cpw.mods.fml.common.Mod;
@@ -14,7 +14,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(name = "CrystalWing", modid = "CrystalWing", version = "Forge " + CWSettings.VERSION_NUMBER, dependencies = "required-after:mod_bspkrsCore", useMetadata = true)
+@Mod(name = "CrystalWing", modid = "CrystalWing", version = "Forge " + CWSettings.VERSION_NUMBER, dependencies = "required-after:bspkrsCore", useMetadata = true)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class CrystalWingMod
 {
@@ -31,11 +31,6 @@ public class CrystalWingMod
     @Instance(value = "CrystalWing")
     public static CrystalWingMod    instance;
     
-    public CrystalWingMod()
-    {
-        new bspkrsCoreProxy();
-    }
-    
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
@@ -44,10 +39,10 @@ public class CrystalWingMod
         
         CWSettings.registerStuff();
         
-        if (bspkrsCoreProxy.instance.allowUpdateCheck)
+        if (bspkrsCoreMod.instance.allowUpdateCheck)
         {
             versionChecker = new ModVersionChecker(metadata.name, metadata.version, versionURL, mcfTopic);
-            versionChecker.checkVersionWithLoggingBySubStringAsFloat(metadata.version.length() - 1, metadata.version.length());
+            versionChecker.checkVersionWithLogging();
         }
     }
     
