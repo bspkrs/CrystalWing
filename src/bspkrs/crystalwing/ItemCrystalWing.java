@@ -1,6 +1,7 @@
 package bspkrs.crystalwing;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,6 +12,8 @@ import bspkrs.util.CommonUtils;
 
 public class ItemCrystalWing extends Item
 {
+    private int coolDown = 0;
+    
     public ItemCrystalWing(int i)
     {
         super(i);
@@ -34,7 +37,7 @@ public class ItemCrystalWing extends Item
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer)
     {
-        if (!world.isRemote)
+        if (!world.isRemote && coolDown == 0)
         {
             if (entityPlayer.dimension == -1)
             {
@@ -43,8 +46,6 @@ public class ItemCrystalWing extends Item
                 itemStack = new ItemStack(CWSettings.crystalWingBurning, 1);
                 return itemStack;
             }
-            else if (world.provider.dimensionId > 0 && !CWSettings.isForgeVersion)
-                return itemStack;
             
             ChunkCoordinates chunkCoords = entityPlayer.getBedLocation(world.provider.dimensionId);
             
@@ -56,10 +57,7 @@ public class ItemCrystalWing extends Item
             if (chunkCoords == null)
                 chunkCoords = world.getSpawnPoint();
             
-            if (CWSettings.isForgeVersion)
-                entityPlayer.addChatMessage(StatCollector.translateToLocal("crystalwing.teleporthome.chatmessage"));
-            else
-                entityPlayer.addChatMessage("Magical winds brought you home");
+            entityPlayer.addChatMessage(StatCollector.translateToLocal("crystalwing.teleporthome.chatmessage"));
             
             entityPlayer.rotationPitch = 0.0F;
             entityPlayer.rotationYaw = 0.0F;
@@ -75,8 +73,17 @@ public class ItemCrystalWing extends Item
             
             if (CWSettings.uses > 0)
                 itemStack.damageItem(1, entityPlayer);
+            
+            coolDown = 40;
         }
         
         return itemStack;
+    }
+    
+    @Override
+    public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5)
+    {
+        if (coolDown > 0)
+            coolDown--;
     }
 }
