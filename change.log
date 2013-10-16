@@ -1,3 +1,6 @@
+1.6.4.r04 - 16-Oct-2013
+- added a cooldown to prevent double item use
+- more localizations
 1.6.4.r03 - 08-Oct-2013
 - added a bunch of localizations
 - fixed duplicate stat ID crash
