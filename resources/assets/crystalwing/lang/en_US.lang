@@ -1,6 +1,7 @@
 item.crystalwing.crystalWing.name=Crystal Wing
 item.crystalwing.crystalWingBurning.name=Burning Wing
 item.crystalwing.crystalWingBurned.name=Burned Wing
+item.crystalwing.enderScepter.name=Ender Scepter
 achievement.burnedWing=To Hell And Back
 achievement.burnedWing.desc=Get a Burned Wing by entering water with a Burning Wing.
 crystalwing.teleporthome.chatmessage=Magical winds brought you home

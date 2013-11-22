@@ -26,11 +26,12 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class CWSettings
 {
-    public final static String  VERSION_NUMBER    = Const.MCVERSION + ".r04";
+    public final static String  VERSION_NUMBER    = Const.MCVERSION + ".r05";
     
     public static int           idCrystalWing     = 23100;
     public static int           idBurningWing     = 23101;
     public static int           idBurnedWing      = 23102;
+    public static int           idEnderScepter    = 23103;
     public static int           idAchievement     = 1710;
     public static int           uses              = 8;
     public static int           teleDistance      = 500;
@@ -38,6 +39,7 @@ public final class CWSettings
     public static Item          crystalWing;
     public static Item          crystalWingBurning;
     public static Item          crystalWingBurned;
+    public static Item          enderScepter;
     public static Achievement   burnedWing;
     
     public static Configuration config;
@@ -60,6 +62,7 @@ public final class CWSettings
         idCrystalWing = config.getItem("idCrystalWing", idCrystalWing).getInt(idCrystalWing);
         idBurningWing = config.getItem("idBurningWing", idBurningWing).getInt(idBurningWing);
         idBurnedWing = config.getItem("idBurnedWing", idBurnedWing).getInt(idBurnedWing);
+        idEnderScepter = config.getItem("idEnderScepter", idEnderScepter).getInt(idEnderScepter);
         idAchievement = config.getInt("idAchievement", ctgyGen, idAchievement, 1, 2000, "");
         allowDebugLogging = config.getBoolean("allowDebugLogging", ctgyGen, allowDebugLogging, "");
         uses = config.getInt("uses", ctgyGen, uses, 0, 5280, "Number of Crystal Wing uses. Set to 0 for infinite.");
@@ -73,6 +76,12 @@ public final class CWSettings
         crystalWing = (new ItemCrystalWing(idCrystalWing - 256)).setUnlocalizedName("crystalwing.crystalWing");
         crystalWingBurning = (new ItemCrystalWingBurning(idBurningWing - 256)).setUnlocalizedName("crystalwing.crystalWingBurning");
         crystalWingBurned = (new ItemCrystalWingBurned(idBurnedWing - 256, teleDistance)).setUnlocalizedName("crystalwing.crystalWingBurned");
+        enderScepter = (new ItemEnderScepter(idEnderScepter)).setUnlocalizedName("crystalwing.enderScepter");
+        
+        GameRegistry.registerItem(crystalWing, "crystalwing.crystalWing", "CrystalWing");
+        GameRegistry.registerItem(crystalWingBurning, "crystalwing.crystalWingBurning", "CrystalWing");
+        GameRegistry.registerItem(crystalWingBurned, "crystalwing.crystalWingBurned", "CrystalWing");
+        GameRegistry.registerItem(enderScepter, "crystalwing.enderScepter", "CrystalWing");
         
         GameRegistry.addRecipe(new ItemStack(crystalWing, 1), new Object[] {
                 "GGG", "EFF", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('F'), Item.feather
