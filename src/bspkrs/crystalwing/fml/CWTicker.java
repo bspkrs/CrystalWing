@@ -1,82 +1,54 @@
 package bspkrs.crystalwing.fml;
 
-import java.util.EnumSet;
-
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ChatComponentText;
 import bspkrs.bspkrscore.fml.bspkrsCoreMod;
+import bspkrs.helpers.entity.player.EntityPlayerHelper;
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class CWTicker implements ITickHandler
+public class CWTicker
 {
-    private Minecraft         mcClient;
+    private Minecraft      mcClient;
+    private static boolean isRegistered = false;
     
-    private EnumSet<TickType> tickTypes = EnumSet.noneOf(TickType.class);
-    
-    public CWTicker(EnumSet<TickType> tickTypes)
+    public CWTicker()
     {
-        this.tickTypes = tickTypes;
         mcClient = FMLClientHandler.instance().getClient();
+        isRegistered = true;
     }
     
-    @Override
-    public void tickStart(EnumSet<TickType> tickTypes, Object... tickData)
+    @SubscribeEvent
+    public void onTick(ClientTickEvent event)
     {
-        tick(tickTypes, true);
-    }
-    
-    @Override
-    public void tickEnd(EnumSet<TickType> tickTypes, Object... tickData)
-    {
-        tick(tickTypes, false);
-    }
-    
-    private void tick(EnumSet<TickType> tickTypes, boolean isStart)
-    {
-        for (TickType tickType : tickTypes)
+        if (!event.phase.equals(Phase.START))
         {
-            if (!onTick(tickType, isStart))
+            boolean keepTicking = !(mcClient != null && mcClient.thePlayer != null && mcClient.theWorld != null);
+            
+            if (mcClient != null && mcClient.thePlayer != null)
             {
-                this.tickTypes.remove(tickType);
-                this.tickTypes.removeAll(tickType.partnerTicks());
+                if (bspkrsCoreMod.instance.allowUpdateCheck && CrystalWingMod.versionChecker != null)
+                    if (!CrystalWingMod.versionChecker.isCurrentVersion())
+                        for (String msg : CrystalWingMod.versionChecker.getInGameMessage())
+                            EntityPlayerHelper.addChatMessage(mcClient.thePlayer, new ChatComponentText(msg));
+                
+                if (!keepTicking)
+                {
+                    FMLCommonHandler.instance().bus().unregister(this);
+                    isRegistered = false;
+                }
             }
         }
     }
     
-    public boolean onTick(TickType tick, boolean isStart)
+    public static boolean isRegistered()
     {
-        if (isStart)
-        {
-            return true;
-        }
-        
-        if (mcClient != null && mcClient.thePlayer != null)
-        {
-            if (bspkrsCoreMod.instance.allowUpdateCheck && CrystalWingMod.versionChecker != null)
-                if (!CrystalWingMod.versionChecker.isCurrentVersion())
-                    for (String msg : CrystalWingMod.versionChecker.getInGameMessage())
-                        mcClient.thePlayer.addChatMessage(msg);
-            
-            return false;
-        }
-        
-        return true;
+        return isRegistered;
     }
-    
-    @Override
-    public EnumSet<TickType> ticks()
-    {
-        return tickTypes;
-    }
-    
-    @Override
-    public String getLabel()
-    {
-        return "CrystalWingTicker";
-    }
-    
 }

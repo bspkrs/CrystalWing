@@ -11,6 +11,8 @@ import java.io.File;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
@@ -19,31 +21,34 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.common.config.Configuration;
+import bspkrs.helpers.block.BlockHelper;
+import bspkrs.helpers.world.WorldHelper;
+import bspkrs.util.BSConfiguration;
 import bspkrs.util.CommonUtils;
-import bspkrs.util.Configuration;
 import bspkrs.util.Const;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class CWSettings
 {
-    public final static String  VERSION_NUMBER    = Const.MCVERSION + ".r05";
+    public final static String    VERSION_NUMBER    = Const.MCVERSION + ".r01";
     
-    public static int           idCrystalWing     = 23100;
-    public static int           idBurningWing     = 23101;
-    public static int           idBurnedWing      = 23102;
-    public static int           idEnderScepter    = 23103;
-    public static int           idAchievement     = 1710;
-    public static int           uses              = 8;
-    public static int           teleDistance      = 500;
+    public static int             idCrystalWing     = 23100;
+    public static int             idBurningWing     = 23101;
+    public static int             idBurnedWing      = 23102;
+    public static int             idEnderScepter    = 23103;
+    public static int             idAchievement     = 1710;
+    public static int             uses              = 8;
+    public static int             teleDistance      = 500;
     
-    public static Item          crystalWing;
-    public static Item          crystalWingBurning;
-    public static Item          crystalWingBurned;
-    public static Item          enderScepter;
-    public static Achievement   burnedWing;
+    public static Item            crystalWing;
+    public static Item            crystalWingBurning;
+    public static Item            crystalWingBurned;
+    public static Item            enderScepter;
+    public static Achievement     burnedWing;
     
-    public static Configuration config;
-    public static boolean       allowDebugLogging = true;
+    public static BSConfiguration config;
+    public static boolean         allowDebugLogging = true;
     
     public static void loadConfig(File file)
     {
@@ -55,15 +60,10 @@ public final class CWSettings
           //                file.delete();
         }
         
-        config = new Configuration(file);
+        config = new BSConfiguration(file);
         
         config.load();
         
-        idCrystalWing = config.getItem("idCrystalWing", idCrystalWing).getInt(idCrystalWing);
-        idBurningWing = config.getItem("idBurningWing", idBurningWing).getInt(idBurningWing);
-        idBurnedWing = config.getItem("idBurnedWing", idBurnedWing).getInt(idBurnedWing);
-        idEnderScepter = config.getItem("idEnderScepter", idEnderScepter).getInt(idEnderScepter);
-        idAchievement = config.getInt("idAchievement", ctgyGen, idAchievement, 1, 2000, "");
         allowDebugLogging = config.getBoolean("allowDebugLogging", ctgyGen, allowDebugLogging, "");
         uses = config.getInt("uses", ctgyGen, uses, 0, 5280, "Number of Crystal Wing uses. Set to 0 for infinite.");
         teleDistance = config.getInt("teleDistance", ctgyGen, teleDistance, 100, 50000, "Maximum distance for the Burned Wing random teleportation.");
@@ -73,10 +73,10 @@ public final class CWSettings
     
     public static void registerStuff()
     {
-        crystalWing = (new ItemCrystalWing(idCrystalWing - 256)).setUnlocalizedName("crystalwing.crystalWing");
-        crystalWingBurning = (new ItemCrystalWingBurning(idBurningWing - 256)).setUnlocalizedName("crystalwing.crystalWingBurning");
-        crystalWingBurned = (new ItemCrystalWingBurned(idBurnedWing - 256, teleDistance)).setUnlocalizedName("crystalwing.crystalWingBurned");
-        enderScepter = (new ItemEnderScepter(idEnderScepter)).setUnlocalizedName("crystalwing.enderScepter");
+        crystalWing = (new ItemCrystalWing()).setUnlocalizedName("crystalwing.crystalWing");
+        crystalWingBurning = (new ItemCrystalWingBurning()).setUnlocalizedName("crystalwing.crystalWingBurning");
+        crystalWingBurned = (new ItemCrystalWingBurned(teleDistance)).setUnlocalizedName("crystalwing.crystalWingBurned");
+        enderScepter = (new ItemEnderScepter()).setUnlocalizedName("crystalwing.enderScepter");
         
         GameRegistry.registerItem(crystalWing, "crystalwing.crystalWing", "CrystalWing");
         GameRegistry.registerItem(crystalWingBurning, "crystalwing.crystalWingBurning", "CrystalWing");
@@ -84,10 +84,10 @@ public final class CWSettings
         GameRegistry.registerItem(enderScepter, "crystalwing.enderScepter", "CrystalWing");
         
         GameRegistry.addRecipe(new ItemStack(crystalWing, 1), new Object[] {
-                "GGG", "EFF", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('F'), Item.feather
+                "GGG", "EFF", Character.valueOf('G'), Items.gold_ingot, Character.valueOf('E'), Items.ender_pearl, Character.valueOf('F'), Items.feather
         });
         
-        burnedWing = (new Achievement(idAchievement, "burnedWing", 9, -5, crystalWingBurning, null)).registerAchievement();
+        burnedWing = (new Achievement("burnedWing", "burnedWing", 9, -5, crystalWingBurning, null)).initIndependentStat().registerStat();
         
         ChestGenHooks.addItem(PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 3));
         ChestGenHooks.addItem(PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWingBurned, 1), 1, 1, 2));
@@ -114,16 +114,16 @@ public final class CWSettings
         }
         
         ChunkCoordinates c = chunkCoords;
-        Block block = Block.blocksList[world.getBlockId(c.posX, c.posY, c.posZ)];
+        Block block = WorldHelper.getBlock(world, c.posX, c.posY, c.posZ);
         
-        if (block != null && block.blockID == Block.bed.blockID)
+        if (block.equals(Blocks.bed))
         {
             return block.getBedSpawnPosition(world, c.posX, c.posY, c.posZ, null);
         }
         else
         {
-            Material material = world.getBlockMaterial(chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ);
-            Material material1 = world.getBlockMaterial(chunkCoords.posX, chunkCoords.posY + 1, chunkCoords.posZ);
+            Material material = BlockHelper.getBlockMaterial(WorldHelper.getBlock(world, chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ));
+            Material material1 = BlockHelper.getBlockMaterial(WorldHelper.getBlock(world, chunkCoords.posX, chunkCoords.posY + 1, chunkCoords.posZ));
             boolean flag1 = !material.isSolid() && !material.isLiquid();
             boolean flag2 = !material1.isSolid() && !material1.isLiquid();
             return par2 && flag1 && flag2 ? chunkCoords : null;

@@ -2,11 +2,6 @@ package bspkrs.crystalwing.fml;
 
 public class CommonProxy
 {
-    public void onLoad()
+    public void registerTickHandler()
     {}
-    
-    public boolean isEnabled()
-    {
-        return true;
-    }
 }

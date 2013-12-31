@@ -5,18 +5,18 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import bspkrs.helpers.entity.player.EntityPlayerHelper;
 import bspkrs.util.CommonUtils;
 
 public class ItemCrystalWing extends Item
 {
     private int coolDown = 0;
     
-    public ItemCrystalWing(int i)
+    public ItemCrystalWing()
     {
-        super(i);
         maxStackSize = 1;
         this.setCreativeTab(CreativeTabs.tabTransport);
         
@@ -57,7 +57,7 @@ public class ItemCrystalWing extends Item
             if (chunkCoords == null)
                 chunkCoords = world.getSpawnPoint();
             
-            entityPlayer.addChatMessage(StatCollector.translateToLocal("crystalwing.teleporthome.chatmessage"));
+            EntityPlayerHelper.addChatMessage(entityPlayer, new ChatComponentTranslation("crystalwing.teleporthome.chatmessage"));
             
             entityPlayer.rotationPitch = 0.0F;
             entityPlayer.rotationYaw = 0.0F;

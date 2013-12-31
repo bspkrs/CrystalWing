@@ -7,9 +7,9 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import bspkrs.util.CommonUtils;
@@ -18,9 +18,8 @@ public class ItemEnderScepter extends Item
 {
     private int coolDown = 0;
     
-    public ItemEnderScepter(int i)
+    public ItemEnderScepter()
     {
-        super(i);
         maxStackSize = 1;
         this.setCreativeTab(CreativeTabs.tabTransport);
         setMaxDamage(-1);
@@ -40,7 +39,7 @@ public class ItemEnderScepter extends Item
         if (!world.isRemote && coolDown == 0)
         {
             MovingObjectPosition lookingSpot = CommonUtils.getPlayerLookingSpot(entityPlayer, false);
-            if (lookingSpot != null && lookingSpot.typeOfHit.equals(EnumMovingObjectType.TILE))
+            if (lookingSpot != null && lookingSpot.typeOfHit.equals(MovingObjectType.BLOCK))
             {
                 ChunkCoordinates chunkCoords;
                 
@@ -96,6 +95,6 @@ public class ItemEnderScepter extends Item
             distance = ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance();
         }
         Vec3 vector2 = vector1.addVector(pitchAdjustedSinYaw * distance, sinPitch * distance, pitchAdjustedCosYaw * distance);
-        return player.worldObj.rayTraceBlocks_do_do(vector1, vector2, false, !true);
+        return player.worldObj.clip(vector1, vector2);
     }
 }

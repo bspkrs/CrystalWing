@@ -12,10 +12,8 @@ import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
 
 @Mod(name = "CrystalWing", modid = "CrystalWing", version = "Forge " + CWSettings.VERSION_NUMBER, dependencies = "required-after:bspkrsCore", useMetadata = true)
-@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class CrystalWingMod
 {
     public static ModVersionChecker versionChecker;
@@ -49,6 +47,6 @@ public class CrystalWingMod
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        proxy.onLoad();
+        proxy.registerTickHandler();
     }
 }

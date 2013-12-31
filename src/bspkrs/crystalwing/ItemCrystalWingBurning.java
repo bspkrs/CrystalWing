@@ -11,9 +11,8 @@ import bspkrs.util.CommonUtils;
 
 public class ItemCrystalWingBurning extends Item
 {
-    public ItemCrystalWingBurning(int i)
+    public ItemCrystalWingBurning()
     {
-        super(i);
         maxStackSize = 1;
         
         if (!CommonUtils.isObfuscatedEnv())
@@ -58,7 +57,7 @@ public class ItemCrystalWingBurning extends Item
             ItemStack itemstack = inventoryplayer.getStackInSlot(i);
             if (itemstack.getItem() instanceof ItemCrystalWingBurning)
             {
-                itemstack.itemID = CWSettings.crystalWingBurned.itemID;
+                itemstack = new ItemStack(CWSettings.crystalWingBurned);
                 inventoryplayer.setInventorySlotContents(i, itemstack);
             }
         }

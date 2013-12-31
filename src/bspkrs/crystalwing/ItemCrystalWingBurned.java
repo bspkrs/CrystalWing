@@ -15,10 +15,8 @@ public class ItemCrystalWingBurned extends Item
     private Random rand;
     private int    teleDistance;
     
-    public ItemCrystalWingBurned(int i, int j)
+    public ItemCrystalWingBurned(int j)
     {
-        super(i);
-        teleDistance = 1;
         teleDistance = j;
         rand = new Random();
         
@@ -47,7 +45,6 @@ public class ItemCrystalWingBurned extends Item
             int dX = (int) ((entityPlayer.posX + rand.nextInt(teleDistance * 2)) - teleDistance);
             int dZ = (int) ((entityPlayer.posZ + rand.nextInt(teleDistance * 2)) - teleDistance);
             int i = CommonUtils.getFirstNonAirBlockFromTop(world, dX, dZ);
-            // world.getChunkProvider().provideChunk(j, k);
             
             world.getChunkProvider().loadChunk(dX - 3 >> 4, dZ - 3 >> 4);
             world.getChunkProvider().loadChunk(dX + 3 >> 4, dZ - 3 >> 4);
@@ -65,7 +62,6 @@ public class ItemCrystalWingBurned extends Item
             world.playSoundAtEntity(entityPlayer, "mob.endermen.portal", 1.0F, 1.0F);
             CommonUtils.spawnExplosionParticleAtEntity(entityPlayer);
             
-            // entityPlayer.setPosition(dX + 0.5D, i + 3, dZ + 0.5D);
             itemstack.stackSize--;
         }
         return itemstack;
