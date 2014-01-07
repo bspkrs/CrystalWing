@@ -1,0 +1,21 @@
+{
+  "modListVersion": 2,
+  "modList": [{
+    "modid": "CrystalWing",
+    "name": "CrystalWing",
+    "description": "Crafted using 3 gold ingots, 2 feathers, and an ender pearl, this magical wing will transport you home!",
+    "version": "${mod_version}",
+    "mcversion": "${minecraft_version}",
+    "url": "http://www.minecraftforum.net/topic/1009577-/",
+    "updateUrl": "",
+    "authorList": [ "DaftPVF", "bspkrs" ],
+    "credits": "Original by DaftPVF",
+    "logoFile": "",
+    "screenshots": [  ],
+    "parent": "",
+    "requiredMods": [ "bspkrsCore" ],
+    "dependencies": [ "bspkrsCore" ],
+    "dependants": [  ],
+    "useDependencyInformation": "true"
+  }]
+}
