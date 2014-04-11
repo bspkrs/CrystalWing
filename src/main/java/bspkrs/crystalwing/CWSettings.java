@@ -21,34 +21,33 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.ChestGenHooks;
-import net.minecraftforge.common.config.Configuration;
 import bspkrs.helpers.block.BlockHelper;
 import bspkrs.helpers.world.WorldHelper;
-import bspkrs.util.BSConfiguration;
 import bspkrs.util.CommonUtils;
 import bspkrs.util.Const;
+import bspkrs.util.config.Configuration;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class CWSettings
 {
-    public final static String    VERSION_NUMBER    = Const.MCVERSION + ".r01";
+    public final static String  VERSION_NUMBER    = Const.MCVERSION + ".r02";
     
-    public static int             idCrystalWing     = 23100;
-    public static int             idBurningWing     = 23101;
-    public static int             idBurnedWing      = 23102;
-    public static int             idEnderScepter    = 23103;
-    public static int             idAchievement     = 1710;
-    public static int             uses              = 8;
-    public static int             teleDistance      = 500;
+    public static int           idCrystalWing     = 23100;
+    public static int           idBurningWing     = 23101;
+    public static int           idBurnedWing      = 23102;
+    public static int           idEnderScepter    = 23103;
+    public static int           idAchievement     = 1710;
+    public static int           uses              = 8;
+    public static int           teleDistance      = 500;
     
-    public static Item            crystalWing;
-    public static Item            crystalWingBurning;
-    public static Item            crystalWingBurned;
-    public static Item            enderScepter;
-    public static Achievement     burnedWing;
+    public static Item          crystalWing;
+    public static Item          crystalWingBurning;
+    public static Item          crystalWingBurned;
+    public static Item          enderScepter;
+    public static Achievement   burnedWing;
     
-    public static BSConfiguration config;
-    public static boolean         allowDebugLogging = true;
+    public static Configuration config;
+    public static boolean       allowDebugLogging = true;
     
     public static void loadConfig(File file)
     {
@@ -60,7 +59,7 @@ public final class CWSettings
           //                file.delete();
         }
         
-        config = new BSConfiguration(file);
+        config = new Configuration(file);
         
         config.load();
         
