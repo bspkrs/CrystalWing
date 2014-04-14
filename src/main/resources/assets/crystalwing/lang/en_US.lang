@@ -5,3 +5,6 @@ item.crystalwing.enderScepter.name=Ender Scepter
 achievement.burnedWing=To Hell And Back
 achievement.burnedWing.desc=Get a Burned Wing by entering water with a Burning Wing.
 crystalwing.teleporthome.chatmessage=Magical winds brought you home
+bspkrs.cw.configgui.allowDebugLogging=Allow Debug Logging
+bspkrs.cw.configgui.uses=Crystal Wing Item Uses (0 for infinite)
+bspkrs.cw.configgui.teleDistance=Burned Wing max teleport distance

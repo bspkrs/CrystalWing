@@ -13,7 +13,8 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(name = "CrystalWing", modid = "CrystalWing", version = CWSettings.VERSION_NUMBER, dependencies = "required-after:bspkrsCore", useMetadata = true)
+@Mod(name = "CrystalWing", modid = "CrystalWing", version = CWSettings.VERSION_NUMBER, dependencies = "required-after:bspkrsCore", useMetadata = true,
+        guiFactory = "bspkrs.crystalwing.fml.gui.ModGuiFactoryHandler")
 public class CrystalWingMod
 {
     public static ModVersionChecker versionChecker;

@@ -30,29 +30,30 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class CWSettings
 {
-    public final static String  VERSION_NUMBER    = Const.MCVERSION + ".r02";
+    public final static String   VERSION_NUMBER           = Const.MCVERSION + ".r02";
     
-    public static int           idCrystalWing     = 23100;
-    public static int           idBurningWing     = 23101;
-    public static int           idBurnedWing      = 23102;
-    public static int           idEnderScepter    = 23103;
-    public static int           idAchievement     = 1710;
-    public static int           uses              = 8;
-    public static int           teleDistance      = 500;
+    private final static boolean allowDebugLoggingDefault = false;
+    public static boolean        allowDebugLogging        = allowDebugLoggingDefault;
+    private final static int     usesDefault              = 8;
+    public static int            uses                     = usesDefault;
+    private final static int     teleDistanceDefault      = 500;
+    public static int            teleDistance             = teleDistanceDefault;
     
-    public static Item          crystalWing;
-    public static Item          crystalWingBurning;
-    public static Item          crystalWingBurned;
-    public static Item          enderScepter;
-    public static Achievement   burnedWing;
+    public static Item           crystalWing;
+    public static Item           crystalWingBurning;
+    public static Item           crystalWingBurned;
+    public static Item           enderScepter;
+    public static Achievement    burnedWing;
     
-    public static Configuration config;
-    public static boolean       allowDebugLogging = true;
+    public static Configuration  config;
+    
+    public static Configuration getConfig()
+    {
+        return config;
+    }
     
     public static void loadConfig(File file)
     {
-        String ctgyGen = Configuration.CATEGORY_GENERAL;
-        
         if (!CommonUtils.isObfuscatedEnv())
         { // debug settings for deobfuscated execution
           //            if (file.exists())
@@ -61,11 +62,21 @@ public final class CWSettings
         
         config = new Configuration(file);
         
+        syncConfig();
+    }
+    
+    public static void syncConfig()
+    {
+        String ctgyGen = Configuration.CATEGORY_GENERAL;
+        
         config.load();
         
-        allowDebugLogging = config.getBoolean("allowDebugLogging", ctgyGen, allowDebugLogging, "");
-        uses = config.getInt("uses", ctgyGen, uses, 0, 5280, "Number of Crystal Wing uses. Set to 0 for infinite.");
-        teleDistance = config.getInt("teleDistance", ctgyGen, teleDistance, 100, 50000, "Maximum distance for the Burned Wing random teleportation.");
+        config.addCustomCategoryComment(ctgyGen, "ATTENTION: Editing this file manually is no longer necessary. \n" +
+                "On the Mods list screen select the entry for CrystalWing, then click the Config button to modify these settings.");
+        
+        allowDebugLogging = config.getBoolean(ConfigElement.ALLOW_DEBUG_LOGGING.key(), ctgyGen, allowDebugLoggingDefault, ConfigElement.ALLOW_DEBUG_LOGGING.desc(), ConfigElement.ALLOW_DEBUG_LOGGING.languageKey());
+        uses = config.getInt(ConfigElement.USES.key(), ctgyGen, usesDefault, 0, 5280, ConfigElement.USES.desc(), ConfigElement.USES.languageKey());
+        teleDistance = config.getInt(ConfigElement.TELE_DISTANCE.key(), ctgyGen, teleDistanceDefault, 100, 50000, ConfigElement.TELE_DISTANCE.desc(), ConfigElement.TELE_DISTANCE.languageKey());
         
         config.save();
     }
