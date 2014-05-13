@@ -31,18 +31,15 @@ public class CWTicker
         {
             boolean keepTicking = !(mcClient != null && mcClient.thePlayer != null && mcClient.theWorld != null);
             
-            if (mcClient != null && mcClient.thePlayer != null)
+            if (!keepTicking && isRegistered)
             {
                 if (bspkrsCoreMod.instance.allowUpdateCheck && CrystalWingMod.versionChecker != null)
                     if (!CrystalWingMod.versionChecker.isCurrentVersion())
                         for (String msg : CrystalWingMod.versionChecker.getInGameMessage())
                             EntityPlayerHelper.addChatMessage(mcClient.thePlayer, new ChatComponentText(msg));
                 
-                if (!keepTicking)
-                {
-                    FMLCommonHandler.instance().bus().unregister(this);
-                    isRegistered = false;
-                }
+                FMLCommonHandler.instance().bus().unregister(this);
+                isRegistered = false;
             }
         }
     }

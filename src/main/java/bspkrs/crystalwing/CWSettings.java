@@ -21,17 +21,15 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.ChestGenHooks;
+import bspkrs.crystalwing.fml.Reference;
 import bspkrs.helpers.block.BlockHelper;
 import bspkrs.helpers.world.WorldHelper;
 import bspkrs.util.CommonUtils;
-import bspkrs.util.Const;
 import bspkrs.util.config.Configuration;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class CWSettings
 {
-    public final static String   VERSION_NUMBER           = Const.MCVERSION + ".r02";
-    
     private final static boolean allowDebugLoggingDefault = false;
     public static boolean        allowDebugLogging        = allowDebugLoggingDefault;
     private final static int     usesDefault              = 8;
@@ -45,14 +43,7 @@ public final class CWSettings
     public static Item           enderScepter;
     public static Achievement    burnedWing;
     
-    public static Configuration  config;
-    
-    public static Configuration getConfig()
-    {
-        return config;
-    }
-    
-    public static void loadConfig(File file)
+    public static void initConfig(File file)
     {
         if (!CommonUtils.isObfuscatedEnv())
         { // debug settings for deobfuscated execution
@@ -60,7 +51,7 @@ public final class CWSettings
           //                file.delete();
         }
         
-        config = new Configuration(file);
+        Reference.config = new Configuration(file);
         
         syncConfig();
     }
@@ -69,16 +60,16 @@ public final class CWSettings
     {
         String ctgyGen = Configuration.CATEGORY_GENERAL;
         
-        config.load();
+        Reference.config.load();
         
-        config.addCustomCategoryComment(ctgyGen, "ATTENTION: Editing this file manually is no longer necessary. \n" +
+        Reference.config.addCustomCategoryComment(ctgyGen, "ATTENTION: Editing this file manually is no longer necessary. \n" +
                 "On the Mods list screen select the entry for CrystalWing, then click the Config button to modify these settings.");
         
-        allowDebugLogging = config.getBoolean(ConfigElement.ALLOW_DEBUG_LOGGING.key(), ctgyGen, allowDebugLoggingDefault, ConfigElement.ALLOW_DEBUG_LOGGING.desc(), ConfigElement.ALLOW_DEBUG_LOGGING.languageKey());
-        uses = config.getInt(ConfigElement.USES.key(), ctgyGen, usesDefault, 0, 5280, ConfigElement.USES.desc(), ConfigElement.USES.languageKey());
-        teleDistance = config.getInt(ConfigElement.TELE_DISTANCE.key(), ctgyGen, teleDistanceDefault, 100, 50000, ConfigElement.TELE_DISTANCE.desc(), ConfigElement.TELE_DISTANCE.languageKey());
+        allowDebugLogging = Reference.config.getBoolean(ConfigElement.ALLOW_DEBUG_LOGGING.key(), ctgyGen, allowDebugLoggingDefault, ConfigElement.ALLOW_DEBUG_LOGGING.desc(), ConfigElement.ALLOW_DEBUG_LOGGING.languageKey());
+        uses = Reference.config.getInt(ConfigElement.USES.key(), ctgyGen, usesDefault, 0, 5280, ConfigElement.USES.desc(), ConfigElement.USES.languageKey());
+        teleDistance = Reference.config.getInt(ConfigElement.TELE_DISTANCE.key(), ctgyGen, teleDistanceDefault, 100, 50000, ConfigElement.TELE_DISTANCE.desc(), ConfigElement.TELE_DISTANCE.languageKey());
         
-        config.save();
+        Reference.config.save();
     }
     
     public static void registerStuff()
@@ -126,7 +117,7 @@ public final class CWSettings
         ChunkCoordinates c = chunkCoords;
         Block block = WorldHelper.getBlock(world, c.posX, c.posY, c.posZ);
         
-        if (block.equals(Blocks.bed))
+        if (block.equals(Blocks.bed) || block.isBed(world, chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ, null))
         {
             return block.getBedSpawnPosition(world, c.posX, c.posY, c.posZ, null);
         }
