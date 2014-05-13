@@ -1,7 +1,13 @@
-item.crystalwing.crystalWing.name=Кристальное крыло
-item.crystalwing.crystalWingBurning.name=Горящее крыло
-item.crystalwing.crystalWingBurned.name=Сгоревшее крыло
-item.crystalwing.enderScepter.name=Скипетр Края
 achievement.burnedWing=В ад и обратно
 achievement.burnedWing.desc=Получите сгоревшее крыло, введя в воду горящее крыло.
+bspkrs.cw.configgui.allowDebugLogging.tooltip=Установите на "true", если хотите, чтобы мод показывал информацию о том, что он делает(В логе), "false", чтобы отключить. Если у вас возникли проблемы с модом, установите эту опцию на "true" и разместите полученный лог в тему на Minecraftforum.net вместе с подробным описанием проблемы. %1$s[по умолчанию: %2$s]
+bspkrs.cw.configgui.allowDebugLogging=Разрешить отладку загрузки
+bspkrs.cw.configgui.teleDistance.tooltip=Максимальная дистанция для случайной телепортации сгоревшего крыла. %1$s[диапазон: %3$s ~ %4$s, по умолчанию: %2$s]
+bspkrs.cw.configgui.teleDistance=Сгоревшее крыло: максимальная дистанция телепортации
+bspkrs.cw.configgui.uses.tooltip=Число использований кристального крыла. Установите на 0 для бесконечности. %1$s[диапазон: %3$s ~ %4$s, по умолчанию: %2$s]
+bspkrs.cw.configgui.uses=Использований кристального крыла (0 для бесконечности)
 crystalwing.teleporthome.chatmessage=Магические ветры привели вас домой
+item.crystalwing.crystalWing.name=Кристальное крыло
+item.crystalwing.crystalWingBurned.name=Сгоревшее крыло
+item.crystalwing.crystalWingBurning.name=Горящее крыло
+item.crystalwing.enderScepter.name=Скипетр Края
