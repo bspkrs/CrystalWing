@@ -22,8 +22,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.ChestGenHooks;
 import bspkrs.crystalwing.fml.Reference;
-import bspkrs.helpers.block.BlockHelper;
-import bspkrs.helpers.world.WorldHelper;
 import bspkrs.util.CommonUtils;
 import bspkrs.util.config.Configuration;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -62,7 +60,7 @@ public final class CWSettings
         
         Reference.config.load();
         
-        Reference.config.addCustomCategoryComment(ctgyGen, "ATTENTION: Editing this file manually is no longer necessary. \n" +
+        Reference.config.setCategoryComment(ctgyGen, "ATTENTION: Editing this file manually is no longer necessary. \n" +
                 "On the Mods list screen select the entry for CrystalWing, then click the Config button to modify these settings.");
         
         allowDebugLogging = Reference.config.getBoolean(ConfigElement.ALLOW_DEBUG_LOGGING.key(), ctgyGen, allowDebugLoggingDefault, ConfigElement.ALLOW_DEBUG_LOGGING.desc(), ConfigElement.ALLOW_DEBUG_LOGGING.languageKey());
@@ -115,7 +113,7 @@ public final class CWSettings
         }
         
         ChunkCoordinates c = chunkCoords;
-        Block block = WorldHelper.getBlock(world, c.posX, c.posY, c.posZ);
+        Block block = world.getBlock(c.posX, c.posY, c.posZ);
         
         if (block.equals(Blocks.bed) || block.isBed(world, chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ, null))
         {
@@ -123,8 +121,8 @@ public final class CWSettings
         }
         else
         {
-            Material material = BlockHelper.getBlockMaterial(WorldHelper.getBlock(world, chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ));
-            Material material1 = BlockHelper.getBlockMaterial(WorldHelper.getBlock(world, chunkCoords.posX, chunkCoords.posY + 1, chunkCoords.posZ));
+            Material material = world.getBlock(chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ).getMaterial();
+            Material material1 = world.getBlock(chunkCoords.posX, chunkCoords.posY + 1, chunkCoords.posZ).getMaterial();
             boolean flag1 = !material.isSolid() && !material.isLiquid();
             boolean flag2 = !material1.isSolid() && !material1.isLiquid();
             return par2 && flag1 && flag2 ? chunkCoords : null;

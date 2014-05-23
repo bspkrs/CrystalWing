@@ -3,7 +3,6 @@ package bspkrs.crystalwing.fml;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 import bspkrs.bspkrscore.fml.bspkrsCoreMod;
-import bspkrs.helpers.entity.player.EntityPlayerHelper;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -36,7 +35,7 @@ public class CWTicker
                 if (bspkrsCoreMod.instance.allowUpdateCheck && CrystalWingMod.versionChecker != null)
                     if (!CrystalWingMod.versionChecker.isCurrentVersion())
                         for (String msg : CrystalWingMod.versionChecker.getInGameMessage())
-                            EntityPlayerHelper.addChatMessage(mcClient.thePlayer, new ChatComponentText(msg));
+                            mcClient.thePlayer.addChatMessage(new ChatComponentText(msg));
                 
                 FMLCommonHandler.instance().bus().unregister(this);
                 isRegistered = false;
