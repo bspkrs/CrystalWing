@@ -21,9 +21,9 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.common.config.Configuration;
 import bspkrs.crystalwing.fml.Reference;
 import bspkrs.util.CommonUtils;
-import bspkrs.util.config.Configuration;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class CWSettings
