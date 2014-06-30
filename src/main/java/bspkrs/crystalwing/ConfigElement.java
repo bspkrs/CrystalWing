@@ -1,8 +1,8 @@
 package bspkrs.crystalwing;
 
-import static bspkrs.util.config.Property.Type.BOOLEAN;
-import static bspkrs.util.config.Property.Type.INTEGER;
-import bspkrs.util.config.Property;
+import static net.minecraftforge.common.config.Property.Type.BOOLEAN;
+import static net.minecraftforge.common.config.Property.Type.INTEGER;
+import net.minecraftforge.common.config.Property;
 
 public enum ConfigElement
 {
