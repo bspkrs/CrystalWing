@@ -1,10 +1,10 @@
 achievement.burnedWing.desc=Get a Burned Wing by entering water with a Burning Wing.
 achievement.burnedWing=To Hell And Back
-bspkrs.cw.configgui.allowDebugLogging.tooltip=Set to true if you want the mod to log info about what it's doing, false to disable. If you are having an issue with the mod, set this option to true and post the resulting log to the Minecraftforum.net thread along with a detailed description of the issue. %1$s[default: %2$s]
+bspkrs.cw.configgui.allowDebugLogging.tooltip=Set to true if you want the mod to log info about what it's doing, false to disable. If you are having an issue with the mod, set this option to true and post the resulting log to the Minecraftforum.net thread along with a detailed description of the issue.
 bspkrs.cw.configgui.allowDebugLogging=Allow Debug Logging
-bspkrs.cw.configgui.teleDistance.tooltip=Maximum distance for the Burned Wing random teleportation. %1$s[range: %3$s ~ %4$s, default: %2$s]
+bspkrs.cw.configgui.teleDistance.tooltip=Maximum distance for the Burned Wing random teleportation.
 bspkrs.cw.configgui.teleDistance=Burned Wing max teleport distance
-bspkrs.cw.configgui.uses.tooltip=Number of Crystal Wing uses. Set to 0 for infinite. %1$s[range: %3$s ~ %4$s, default: %2$s]
+bspkrs.cw.configgui.uses.tooltip=Number of Crystal Wing uses. Set to 0 for infinite.
 bspkrs.cw.configgui.uses=Crystal Wing Item Uses (0 for infinite)
 crystalwing.teleporthome.chatmessage=Magical winds brought you home
 item.crystalwing.crystalWing.name=Crystal Wing
