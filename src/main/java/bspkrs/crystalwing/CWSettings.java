@@ -34,13 +34,13 @@ public final class CWSettings
     public static int            uses                     = usesDefault;
     private final static int     teleDistanceDefault      = 500;
     public static int            teleDistance             = teleDistanceDefault;
-    
+
     public static Item           crystalWing;
     public static Item           crystalWingBurning;
     public static Item           crystalWingBurned;
     public static Item           enderScepter;
     public static Achievement    burnedWing;
-    
+
     public static void initConfig(File file)
     {
         if (!CommonUtils.isObfuscatedEnv())
@@ -48,46 +48,46 @@ public final class CWSettings
           //            if (file.exists())
           //                file.delete();
         }
-        
+
         Reference.config = new Configuration(file);
-        
+
         syncConfig();
     }
-    
+
     public static void syncConfig()
     {
         String ctgyGen = Configuration.CATEGORY_GENERAL;
-        
+
         Reference.config.load();
-        
+
         Reference.config.setCategoryComment(ctgyGen, "ATTENTION: Editing this file manually is no longer necessary. \n" +
                 "On the Mods list screen select the entry for CrystalWing, then click the Config button to modify these settings.");
-        
+
         allowDebugLogging = Reference.config.getBoolean(ConfigElement.ALLOW_DEBUG_LOGGING.key(), ctgyGen, allowDebugLoggingDefault, ConfigElement.ALLOW_DEBUG_LOGGING.desc(), ConfigElement.ALLOW_DEBUG_LOGGING.languageKey());
         uses = Reference.config.getInt(ConfigElement.USES.key(), ctgyGen, usesDefault, 0, 5280, ConfigElement.USES.desc(), ConfigElement.USES.languageKey());
         teleDistance = Reference.config.getInt(ConfigElement.TELE_DISTANCE.key(), ctgyGen, teleDistanceDefault, 100, 50000, ConfigElement.TELE_DISTANCE.desc(), ConfigElement.TELE_DISTANCE.languageKey());
-        
+
         Reference.config.save();
     }
-    
+
     public static void registerStuff()
     {
         crystalWing = (new ItemCrystalWing()).setUnlocalizedName("crystalwing.crystalWing");
         crystalWingBurning = (new ItemCrystalWingBurning()).setUnlocalizedName("crystalwing.crystalWingBurning");
         crystalWingBurned = (new ItemCrystalWingBurned(teleDistance)).setUnlocalizedName("crystalwing.crystalWingBurned");
         enderScepter = (new ItemEnderScepter()).setUnlocalizedName("crystalwing.enderScepter");
-        
+
         GameRegistry.registerItem(crystalWing, "crystalwing.crystalWing", "CrystalWing");
         GameRegistry.registerItem(crystalWingBurning, "crystalwing.crystalWingBurning", "CrystalWing");
         GameRegistry.registerItem(crystalWingBurned, "crystalwing.crystalWingBurned", "CrystalWing");
         GameRegistry.registerItem(enderScepter, "crystalwing.enderScepter", "CrystalWing");
-        
+
         GameRegistry.addRecipe(new ItemStack(crystalWing, 1), new Object[] {
                 "GGG", "EFF", Character.valueOf('G'), Items.gold_ingot, Character.valueOf('E'), Items.ender_pearl, Character.valueOf('F'), Items.feather
         });
-        
+
         burnedWing = (new Achievement("burnedWing", "burnedWing", 9, -5, crystalWingBurning, null)).initIndependentStat().registerStat();
-        
+
         ChestGenHooks.addItem(PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 3));
         ChestGenHooks.addItem(PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWingBurned, 1), 1, 1, 2));
         ChestGenHooks.addItem(PYRAMID_JUNGLE_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 2));
@@ -97,7 +97,7 @@ public final class CWSettings
         ChestGenHooks.addItem(DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 3));
         ChestGenHooks.addItem(DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWingBurned, 1), 1, 1, 2));
     }
-    
+
     /**
      * Ensure that a block enabling respawning exists at the specified coordinates and find an empty space nearby to spawn.
      */
@@ -111,10 +111,10 @@ public final class CWSettings
             ichunkprovider.loadChunk(chunkCoords.posX - 3 >> 4, chunkCoords.posZ + 3 >> 4);
             ichunkprovider.loadChunk(chunkCoords.posX + 3 >> 4, chunkCoords.posZ + 3 >> 4);
         }
-        
+
         ChunkCoordinates c = chunkCoords;
         Block block = world.getBlock(c.posX, c.posY, c.posZ);
-        
+
         if (block.equals(Blocks.bed) || block.isBed(world, chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ, null))
         {
             return block.getBedSpawnPosition(world, c.posX, c.posY, c.posZ, null);

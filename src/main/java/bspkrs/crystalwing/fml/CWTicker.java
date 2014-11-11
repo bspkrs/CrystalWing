@@ -16,33 +16,33 @@ public class CWTicker
 {
     private Minecraft      mcClient;
     private static boolean isRegistered = false;
-    
+
     public CWTicker()
     {
         mcClient = FMLClientHandler.instance().getClient();
         isRegistered = true;
     }
-    
+
     @SubscribeEvent
     public void onTick(ClientTickEvent event)
     {
         if (!event.phase.equals(Phase.START))
         {
             boolean keepTicking = !(mcClient != null && mcClient.thePlayer != null && mcClient.theWorld != null);
-            
+
             if (!keepTicking && isRegistered)
             {
                 if (bspkrsCoreMod.instance.allowUpdateCheck && CrystalWingMod.versionChecker != null)
                     if (!CrystalWingMod.versionChecker.isCurrentVersion())
                         for (String msg : CrystalWingMod.versionChecker.getInGameMessage())
                             mcClient.thePlayer.addChatMessage(new ChatComponentText(msg));
-                
+
                 FMLCommonHandler.instance().bus().unregister(this);
                 isRegistered = false;
             }
         }
     }
-    
+
     public static boolean isRegistered()
     {
         return isRegistered;

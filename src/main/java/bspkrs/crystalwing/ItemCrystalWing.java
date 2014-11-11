@@ -13,18 +13,18 @@ import bspkrs.util.CommonUtils;
 public class ItemCrystalWing extends Item
 {
     private int coolDown = 0;
-    
+
     public ItemCrystalWing()
     {
         maxStackSize = 1;
         this.setCreativeTab(CreativeTabs.tabTransport);
-        
+
         if (CWSettings.uses > 0)
         {
-            setMaxDamage(CWSettings.uses - 1);
+            this.setMaxDurability(CWSettings.uses - 1);
         }
     }
-    
+
     @Override
     public Item setUnlocalizedName(String par1Str)
     {
@@ -32,7 +32,7 @@ public class ItemCrystalWing extends Item
         this.setTextureName(par1Str.replaceAll("\\.", ":"));
         return this;
     }
-    
+
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer)
     {
@@ -45,40 +45,40 @@ public class ItemCrystalWing extends Item
                 itemStack = new ItemStack(CWSettings.crystalWingBurning, 1);
                 return itemStack;
             }
-            
+
             ChunkCoordinates chunkCoords = entityPlayer.getBedLocation(world.provider.dimensionId);
-            
+
             if (chunkCoords == null)
                 chunkCoords = world.getSpawnPoint();
-            
+
             chunkCoords = CWSettings.verifyRespawnCoordinates(world, chunkCoords, false);
-            
+
             if (chunkCoords == null)
                 chunkCoords = world.getSpawnPoint();
-            
+
             entityPlayer.addChatMessage(new ChatComponentTranslation("crystalwing.teleporthome.chatmessage"));
-            
+
             entityPlayer.rotationPitch = 0.0F;
             entityPlayer.rotationYaw = 0.0F;
             entityPlayer.setPositionAndUpdate(chunkCoords.posX + 0.5D, chunkCoords.posY + 0.1D, chunkCoords.posZ);
-            
+
             while (!world.getCollidingBoundingBoxes(entityPlayer, entityPlayer.boundingBox).isEmpty())
             {
                 entityPlayer.setPositionAndUpdate(entityPlayer.posX, entityPlayer.posY + 1.0D, entityPlayer.posZ);
             }
-            
+
             world.playSoundAtEntity(entityPlayer, "mob.endermen.portal", 1.0F, 1.0F);
             CommonUtils.spawnExplosionParticleAtEntity(entityPlayer);
-            
+
             if (CWSettings.uses > 0)
                 itemStack.damageItem(1, entityPlayer);
-            
+
             coolDown = 40;
         }
-        
+
         return itemStack;
     }
-    
+
     @Override
     public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5)
     {

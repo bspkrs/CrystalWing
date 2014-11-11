@@ -14,11 +14,11 @@ public class ItemCrystalWingBurning extends Item
     public ItemCrystalWingBurning()
     {
         maxStackSize = 1;
-        
+
         if (!CommonUtils.isObfuscatedEnv())
             this.setCreativeTab(CreativeTabs.tabTransport);
     }
-    
+
     @Override
     public Item setUnlocalizedName(String par1Str)
     {
@@ -26,7 +26,7 @@ public class ItemCrystalWingBurning extends Item
         this.setTextureName(par1Str.replaceAll("\\.", ":"));
         return this;
     }
-    
+
     @Override
     public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean flag)
     {
@@ -46,14 +46,14 @@ public class ItemCrystalWingBurning extends Item
             entity.setFire(2);
         }
     }
-    
+
     private void replaceWings(InventoryPlayer inventoryplayer)
     {
         for (int i = 0; i < inventoryplayer.getSizeInventory(); i++)
         {
             if (inventoryplayer.getStackInSlot(i) == null)
                 continue;
-            
+
             ItemStack itemstack = inventoryplayer.getStackInSlot(i);
             if (itemstack.getItem() instanceof ItemCrystalWingBurning)
             {
@@ -61,6 +61,6 @@ public class ItemCrystalWingBurning extends Item
                 inventoryplayer.setInventorySlotContents(i, itemstack);
             }
         }
-        
+
     }
 }

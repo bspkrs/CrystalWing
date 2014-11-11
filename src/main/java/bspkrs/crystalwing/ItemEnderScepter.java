@@ -17,14 +17,14 @@ import bspkrs.util.CommonUtils;
 public class ItemEnderScepter extends Item
 {
     private int coolDown = 0;
-    
+
     public ItemEnderScepter()
     {
         maxStackSize = 1;
         this.setCreativeTab(CreativeTabs.tabTransport);
-        setMaxDamage(-1);
+        this.setMaxDurability(-1);
     }
-    
+
     @Override
     public Item setUnlocalizedName(String par1Str)
     {
@@ -32,7 +32,7 @@ public class ItemEnderScepter extends Item
         this.setTextureName(par1Str.replaceAll("\\.", ":"));
         return this;
     }
-    
+
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer)
     {
@@ -42,38 +42,38 @@ public class ItemEnderScepter extends Item
             if (lookingSpot != null && lookingSpot.typeOfHit.equals(MovingObjectType.BLOCK))
             {
                 ChunkCoordinates chunkCoords;
-                
+
                 if (entityPlayer.capabilities.isFlying)
                     chunkCoords = new ChunkCoordinates(lookingSpot.blockX,
                             Math.max((int) entityPlayer.posY, CommonUtils.getHighestGroundBlock(world, lookingSpot.blockX, lookingSpot.blockY, lookingSpot.blockZ)),
                             lookingSpot.blockZ);
                 else
                     chunkCoords = new ChunkCoordinates(lookingSpot.blockX, lookingSpot.blockY, lookingSpot.blockZ);
-                
+
                 entityPlayer.setPositionAndUpdate(chunkCoords.posX + 0.5D, chunkCoords.posY + 0.1D, chunkCoords.posZ);
-                
+
                 while (!world.getCollidingBoundingBoxes(entityPlayer, entityPlayer.boundingBox).isEmpty())
                 {
                     entityPlayer.setPositionAndUpdate(entityPlayer.posX, entityPlayer.posY + 1.0D, entityPlayer.posZ);
                 }
-                
+
                 world.playSoundAtEntity(entityPlayer, "mob.endermen.portal", 1.0F, 1.0F);
                 CommonUtils.spawnExplosionParticleAtEntity(entityPlayer);
-                
+
                 coolDown = 40;
             }
         }
-        
+
         return itemStack;
     }
-    
+
     @Override
     public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5)
     {
         if (coolDown > 0)
             coolDown--;
     }
-    
+
     public static MovingObjectPosition getPlayerLookingSpot(EntityPlayer player, boolean restrict)
     {
         float scale = 1.0F;
