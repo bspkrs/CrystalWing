@@ -6,30 +6,21 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.IChunkProvider;
 import bspkrs.util.CommonUtils;
 
-public class ItemCrystalWingBurned extends Item
+public class ItemCrystalWingBurnt extends Item
 {
+    private final Random rand;
 
-    private Random rand;
-    private int    teleDistance;
-
-    public ItemCrystalWingBurned(int j)
+    public ItemCrystalWingBurnt()
     {
-        teleDistance = j;
         rand = new Random();
 
         if (!CommonUtils.isObfuscatedEnv())
             this.setCreativeTab(CreativeTabs.tabTransport);
-    }
-
-    @Override
-    public Item setUnlocalizedName(String par1Str)
-    {
-        super.setUnlocalizedName(par1Str);
-        this.setTextureName(par1Str.replaceAll("\\.", ":"));
-        return this;
     }
 
     @Override
@@ -42,19 +33,21 @@ public class ItemCrystalWingBurned extends Item
                 return CWSettings.crystalWing.onItemRightClick(itemstack, world, entityPlayer);
             }
             world.playSoundAtEntity(entityPlayer, "fire.ignite", 1.0F, 0.5F);
-            int dX = (int) ((entityPlayer.posX + rand.nextInt(teleDistance * 2)) - teleDistance);
-            int dZ = (int) ((entityPlayer.posZ + rand.nextInt(teleDistance * 2)) - teleDistance);
-            int i = CommonUtils.getFirstNonAirBlockFromTop(world, dX, dZ);
+            int dX = (int) ((entityPlayer.posX + rand.nextInt(CWSettings.teleDistance * 2)) - CWSettings.teleDistance);
+            int dZ = (int) ((entityPlayer.posZ + rand.nextInt(CWSettings.teleDistance * 2)) - CWSettings.teleDistance);
+            BlockPos c = new BlockPos(dX, CommonUtils.getFirstNonAirBlockFromTop(world, new BlockPos(dX, 0, dZ)), dZ);
 
-            world.getChunkProvider().loadChunk(dX - 3 >> 4, dZ - 3 >> 4);
-            world.getChunkProvider().loadChunk(dX + 3 >> 4, dZ - 3 >> 4);
-            world.getChunkProvider().loadChunk(dX - 3 >> 4, dZ + 3 >> 4);
-            world.getChunkProvider().loadChunk(dX + 3 >> 4, dZ + 3 >> 4);
+            IChunkProvider ichunkprovider = world.getChunkProvider();
+            ichunkprovider.provideChunk(c.north(3).east(3));
+            ichunkprovider.provideChunk(c.south(3).east(3));
+            ichunkprovider.provideChunk(c.north(3).west(3));
+            ichunkprovider.provideChunk(c.south(3).west(3));
+
             entityPlayer.rotationPitch = 0.0F;
             entityPlayer.rotationYaw = 0.0F;
-            entityPlayer.setPositionAndUpdate(dX + 0.5D, i + 0.1D, dZ);
+            entityPlayer.setPositionAndUpdate(dX + 0.5D, c.getY() + 0.1D, dZ);
 
-            while (!world.getCollidingBoundingBoxes(entityPlayer, entityPlayer.boundingBox).isEmpty())
+            while (!world.getCollidingBoundingBoxes(entityPlayer, entityPlayer.getEntityBoundingBox()).isEmpty())
             {
                 entityPlayer.setPositionAndUpdate(entityPlayer.posX, entityPlayer.posY + 1.0D, entityPlayer.posZ);
             }

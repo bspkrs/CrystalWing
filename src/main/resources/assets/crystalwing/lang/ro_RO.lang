@@ -1,6 +1,6 @@
-item.crystalwing.crystalWing.name=Aripa de Cristal
-item.crystalwing.crystalWingBurning.name=Aripa în Flacari
-item.crystalwing.crystalWingBurned.name=Aripa Arsa
+item.crystalWing.name=Aripa de Cristal
+item.crystalWingBurning.name=Aripa în Flacari
+item.crystalWingBurnt.name=Aripa Arsa
 achievement.burnedWing=Spre Iad Si Înapoi
 achievement.burnedWing.desc=Obtine o Aripa Arsa intrând în apa cu o Aripa în Flacari.
 crystalwing.teleporthome.chatmessage=Vânturi magice te-au adus acasa

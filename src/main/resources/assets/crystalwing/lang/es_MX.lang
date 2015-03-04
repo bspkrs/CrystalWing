@@ -1,6 +1,6 @@
-item.crystalwing.crystalWing.name=Ala de Cristal
-item.crystalwing.crystalWingBurning.name=Quemando Ala
-item.crystalwing.crystalWingBurned.name=Ala Quemada
+item.crystalWing.name=Ala de Cristal
+item.crystalWingBurning.name=Quemando Ala
+item.crystalWingBurnt.name=Ala Quemada
 achievement.burnedWing=Y Vuelta al Infierno
 achievement.burnedWing.desc=Obtenga un Ala Quemada por entrar en el agua con un Quemando Ala.
 crystalwing.teleporthome.chatmessage=Vientos de mágicos que te trajo a casa

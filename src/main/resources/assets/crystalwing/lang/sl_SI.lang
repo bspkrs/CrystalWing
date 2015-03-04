@@ -1,6 +1,6 @@
-item.crystalwing.crystalWing.name=Kristalno Krilo
-item.crystalwing.crystalWingBurning.name=Goreče Krilo
-item.crystalwing.crystalWingBurned.name=Zažgano Krilo
+item.crystalWing.name=Kristalno Krilo
+item.crystalWingBurning.name=Goreče Krilo
+item.crystalWingBurnt.name=Zažgano Krilo
 achievement.burnedWing=V Pekel in Nazaj
 achievement.burnedWing.desc=Ustvari Zažgano Krilo z vstopom v vodo z Gorečim Krilom.
 crystalwing.teleporthome.chatmessage=Čarobni veter te je prinesel domov

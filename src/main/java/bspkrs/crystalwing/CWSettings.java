@@ -11,20 +11,21 @@ import java.io.File;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import bspkrs.crystalwing.fml.Reference;
 import bspkrs.util.CommonUtils;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class CWSettings
 {
@@ -37,9 +38,9 @@ public final class CWSettings
 
     public static Item           crystalWing;
     public static Item           crystalWingBurning;
-    public static Item           crystalWingBurned;
+    public static Item           crystalWingBurnt;
     public static Item           enderScepter;
-    public static Achievement    burnedWing;
+    public static Achievement    burntWing;
 
     public static void initConfig(File file)
     {
@@ -72,60 +73,57 @@ public final class CWSettings
 
     public static void registerStuff()
     {
-        crystalWing = (new ItemCrystalWing()).setUnlocalizedName("crystalwing.crystalWing");
-        crystalWingBurning = (new ItemCrystalWingBurning()).setUnlocalizedName("crystalwing.crystalWingBurning");
-        crystalWingBurned = (new ItemCrystalWingBurned(teleDistance)).setUnlocalizedName("crystalwing.crystalWingBurned");
-        enderScepter = (new ItemEnderScepter()).setUnlocalizedName("crystalwing.enderScepter");
+        crystalWing = (new ItemCrystalWing()).setUnlocalizedName("crystalWing");
+        crystalWingBurning = (new ItemCrystalWingBurning()).setUnlocalizedName("crystalWingBurning");
+        crystalWingBurnt = (new ItemCrystalWingBurnt()).setUnlocalizedName("crystalWingBurnt");
+        enderScepter = (new ItemEnderScepter()).setUnlocalizedName("enderScepter");
 
-        GameRegistry.registerItem(crystalWing, "crystalwing.crystalWing", "CrystalWing");
-        GameRegistry.registerItem(crystalWingBurning, "crystalwing.crystalWingBurning", "CrystalWing");
-        GameRegistry.registerItem(crystalWingBurned, "crystalwing.crystalWingBurned", "CrystalWing");
-        GameRegistry.registerItem(enderScepter, "crystalwing.enderScepter", "CrystalWing");
+        GameRegistry.registerItem(crystalWing, "crystalWing");
+        GameRegistry.registerItem(crystalWingBurning, "crystalWingBurning");
+        GameRegistry.registerItem(crystalWingBurnt, "crystalWingBurnt");
+        GameRegistry.registerItem(enderScepter, "enderScepter");
 
         GameRegistry.addRecipe(new ItemStack(crystalWing, 1), new Object[] {
                 "GGG", "EFF", Character.valueOf('G'), Items.gold_ingot, Character.valueOf('E'), Items.ender_pearl, Character.valueOf('F'), Items.feather
         });
 
-        burnedWing = (new Achievement("burnedWing", "burnedWing", 9, -5, crystalWingBurning, null)).initIndependentStat().registerStat();
+        burntWing = (Achievement) (new Achievement("burntWing", "burntWing", 9, -5, crystalWingBurning, null)).initIndependentStat().registerStat();
 
         ChestGenHooks.addItem(PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 3));
-        ChestGenHooks.addItem(PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWingBurned, 1), 1, 1, 2));
+        ChestGenHooks.addItem(PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWingBurnt, 1), 1, 1, 2));
         ChestGenHooks.addItem(PYRAMID_JUNGLE_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 2));
         ChestGenHooks.addItem(STRONGHOLD_LIBRARY, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 2));
         ChestGenHooks.addItem(VILLAGE_BLACKSMITH, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 2));
         ChestGenHooks.addItem(BONUS_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 2));
         ChestGenHooks.addItem(DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 3));
-        ChestGenHooks.addItem(DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWingBurned, 1), 1, 1, 2));
+        ChestGenHooks.addItem(DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWingBurnt, 1), 1, 1, 2));
     }
 
     /**
      * Ensure that a block enabling respawning exists at the specified coordinates and find an empty space nearby to spawn.
      */
-    public static ChunkCoordinates verifyRespawnCoordinates(World world, ChunkCoordinates chunkCoords, boolean par2)
+    public static BlockPos verifyRespawnCoordinates(World world, BlockPos c, boolean par2)
     {
-        if (!world.isRemote)
-        {
-            IChunkProvider ichunkprovider = world.getChunkProvider();
-            ichunkprovider.loadChunk(chunkCoords.posX - 3 >> 4, chunkCoords.posZ - 3 >> 4);
-            ichunkprovider.loadChunk(chunkCoords.posX + 3 >> 4, chunkCoords.posZ - 3 >> 4);
-            ichunkprovider.loadChunk(chunkCoords.posX - 3 >> 4, chunkCoords.posZ + 3 >> 4);
-            ichunkprovider.loadChunk(chunkCoords.posX + 3 >> 4, chunkCoords.posZ + 3 >> 4);
-        }
+        IChunkProvider ichunkprovider = world.getChunkProvider();
+        ichunkprovider.provideChunk(c.north(3).east(3));
+        ichunkprovider.provideChunk(c.south(3).east(3));
+        ichunkprovider.provideChunk(c.north(3).west(3));
+        ichunkprovider.provideChunk(c.south(3).west(3));
 
-        ChunkCoordinates c = chunkCoords;
-        Block block = world.getBlock(c.posX, c.posY, c.posZ);
+        IBlockState state = world.getBlockState(c);
+        Block block = state.getBlock();
 
-        if (block.equals(Blocks.bed) || block.isBed(world, chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ, null))
+        if (block.equals(Blocks.bed) || block.isBed(world, c, null))
         {
-            return block.getBedSpawnPosition(world, c.posX, c.posY, c.posZ, null);
+            return block.getBedSpawnPosition(world, c, null);
         }
         else
         {
-            Material material = world.getBlock(chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ).getMaterial();
-            Material material1 = world.getBlock(chunkCoords.posX, chunkCoords.posY + 1, chunkCoords.posZ).getMaterial();
+            Material material = block.getMaterial();
+            Material material1 = world.getBlockState(c.up()).getBlock().getMaterial();
             boolean flag1 = !material.isSolid() && !material.isLiquid();
             boolean flag2 = !material1.isSolid() && !material1.isLiquid();
-            return par2 && flag1 && flag2 ? chunkCoords : null;
+            return par2 && flag1 && flag2 ? c : null;
         }
     }
 }

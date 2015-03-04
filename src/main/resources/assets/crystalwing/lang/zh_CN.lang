@@ -1,8 +1,8 @@
 #zh_CN
 
-item.crystalwing.crystalWing.name=水晶之翼
-item.crystalwing.crystalWingBurning.name=燃烧之翼
-item.crystalwing.crystalWingBurned.name=余烬之翼
+item.crystalWing.name=水晶之翼
+item.crystalWingBurning.name=燃烧之翼
+item.crystalWingBurnt.name=余烬之翼
 achievement.burnedWing=下地狱再回来
 achievement.burnedWing.desc=拿着燃烧之翼进入水中能得到余烬之翼.
 crystalwing.teleporthome.chatmessage=魔力之风带你回家!

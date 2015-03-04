@@ -1,6 +1,6 @@
-item.crystalwing.crystalWing.name=Crystal Wing
-item.crystalwing.crystalWingBurning.name=Burning Wing
-item.crystalwing.crystalWingBurned.name=Burned Wing
-achievement.burnedWing=To Hell And Back
-achievement.burnedWing.desc=Get a Burned Wing by entering water with a Burning Wing.
+item.crystalWing.name=Crystal Wing
+item.crystalWingBurning.name=Burning Wing
+item.crystalWingBurnt.name=Burnt Wing
+achievement.burntWing=To Hell And Back
+achievement.burntWing.desc=Get a Burnt Wing by entering water with a Burning Wing.
 crystalwing.teleporthome.chatmessage=Magical winds brought you home

@@ -20,14 +20,6 @@ public class ItemCrystalWingBurning extends Item
     }
 
     @Override
-    public Item setUnlocalizedName(String par1Str)
-    {
-        super.setUnlocalizedName(par1Str);
-        this.setTextureName(par1Str.replaceAll("\\.", ":"));
-        return this;
-    }
-
-    @Override
     public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean flag)
     {
         if (entity.isInWater())
@@ -36,7 +28,7 @@ public class ItemCrystalWingBurning extends Item
             {
                 EntityPlayer entityplayer = (EntityPlayer) entity;
                 world.playSoundAtEntity(entity, "random.fizz", 1.0F, 1.0F);
-                entityplayer.addStat(CWSettings.burnedWing, 1);
+                entityplayer.addStat(CWSettings.burntWing, 1);
                 replaceWings(entityplayer.inventory);
             }
             return;
@@ -57,7 +49,7 @@ public class ItemCrystalWingBurning extends Item
             ItemStack itemstack = inventoryplayer.getStackInSlot(i);
             if (itemstack.getItem() instanceof ItemCrystalWingBurning)
             {
-                itemstack = new ItemStack(CWSettings.crystalWingBurned);
+                itemstack = new ItemStack(CWSettings.crystalWingBurnt);
                 inventoryplayer.setInventorySlotContents(i, itemstack);
             }
         }

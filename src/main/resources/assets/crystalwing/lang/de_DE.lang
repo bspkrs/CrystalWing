@@ -1,7 +1,7 @@
 
-item.crystalwing.crystalWing.name=Kristallflügel
-item.crystalwing.crystalWingBurning.name=Brennender Flügel
-item.crystalwing.crystalWingBurned.name=Verbrannter Flügel
+item.crystalWing.name=Kristallflügel
+item.crystalWingBurning.name=Brennender Flügel
+item.crystalWingBurnt.name=Verbrannter Flügel
 achievement.burnedWing=Zur Hölle und zurück
 achievement.burnedWing.desc=Mache einen Verbrannten Flügel aus einem Brennenden Flügel, indem du im Wasser watest.
 crystalwing.teleporthome.chatmessage=Magische Winde trugen dich nach Hause.
