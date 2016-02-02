@@ -3,7 +3,6 @@ package bspkrs.crystalwing.fml;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import bspkrs.crystalwing.CWSettings;
@@ -24,7 +23,5 @@ public class ClientProxy extends CommonProxy
     @Override
     public void registerTickHandler()
     {
-        if (!CWTicker.isRegistered())
-            FMLCommonHandler.instance().bus().register(new CWTicker());
     }
 }

@@ -1,7 +1,7 @@
 package bspkrs.crystalwing.fml;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -11,19 +11,13 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import bspkrs.bspkrscore.fml.bspkrsCoreMod;
 import bspkrs.crystalwing.CWSettings;
 import bspkrs.util.Const;
-import bspkrs.util.ModVersionChecker;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = "@MOD_VERSION@", dependencies = "required-after:bspkrsCore@[@BSCORE_VERSION@,)",
-        useMetadata = true, guiFactory = Reference.GUI_FACTORY)
+        useMetadata = true, guiFactory = Reference.GUI_FACTORY, updateJSON = Const.VERSION_URL_BASE + Reference.MODID + Const.VERSION_URL_EXT)
 public class CrystalWingMod
 {
-    public static ModVersionChecker versionChecker;
-    private final String            versionURL = Const.VERSION_URL + "/Minecraft/" + Const.MCVERSION + "/crystalWingForge.version";
-    private final String            mcfTopic   = "http://www.minecraftforum.net/topic/1009577-";
-
     @Metadata(value = Reference.MODID)
     public static ModMetadata       metadata;
 
@@ -36,7 +30,6 @@ public class CrystalWingMod
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        metadata = event.getModMetadata();
         CWSettings.initConfig(event.getSuggestedConfigurationFile());
         CWSettings.registerStuff();
     }
@@ -46,13 +39,7 @@ public class CrystalWingMod
     {
         proxy.registerTickHandler();
         proxy.registerItemModels();
-        FMLCommonHandler.instance().bus().register(instance);
-
-        if (bspkrsCoreMod.instance.allowUpdateCheck)
-        {
-            versionChecker = new ModVersionChecker(Reference.MODID, metadata.version, versionURL, mcfTopic);
-            versionChecker.checkVersionWithLogging();
-        }
+        MinecraftForge.EVENT_BUS.register(instance);
     }
 
     @SubscribeEvent
