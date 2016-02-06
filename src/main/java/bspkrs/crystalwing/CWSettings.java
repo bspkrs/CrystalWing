@@ -87,7 +87,7 @@ public final class CWSettings
                 "GGG", "EFF", Character.valueOf('G'), Items.gold_ingot, Character.valueOf('E'), Items.ender_pearl, Character.valueOf('F'), Items.feather
         });
 
-        burntWing = (Achievement) (new Achievement("burntWing", "burntWing", 9, -5, crystalWingBurning, null)).initIndependentStat().registerStat();
+        burntWing = (new Achievement("burntWing", "burntWing", 9, -5, crystalWingBurning, null)).initIndependentStat().registerStat();
 
         ChestGenHooks.addItem(PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWing, 1), 1, 1, 3));
         ChestGenHooks.addItem(PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(crystalWingBurnt, 1), 1, 1, 2));
